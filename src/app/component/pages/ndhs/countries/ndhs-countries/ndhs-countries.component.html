@@ -1,6 +1,6 @@
 <div class="two-column-layout">
-    <div class="language-sidebar">
-        <div class="example-sidenav-content">
+    <div class="language-sidebar" >
+        <div class="example-sidenav-content" >
             <!-- <div class="tooltip-main">
                 <div class="tooltip-option left">
                     <span class="arrow is-triangle is-left"></span>
@@ -11,15 +11,15 @@
                     </div>
                 </div>
             </div> -->
-            <button type="button" mat-button disableRipple>
+            <button type="button" mat-button (click)="drawer.toggle()" disableRipple>
                 <div class="selected-language">
                     <mat-icon>arrow_left</mat-icon><img src="assets/flags/in.png" />
-                    <!-- {{ country_name }} -->
+                    <!-- {{ country_name }} -->India
                 </div>
             </button>
         </div>
         <mat-drawer-container class="example-container" autosize>
-            <mat-drawer #drawer class="example-sidenav" mode="side">
+            <mat-drawer #drawer class="example-sidenav" mode="side" >
                 <div class="search-content">
                     <div class="mat-search">
                         <a >
@@ -30,12 +30,12 @@
                         </div>
                     </div>
                     <div class="country-list">
-                        <ul>
-                            <li>
+                        <ul *ngFor="let country of countries">
+                            <li (click)="drawer.close()">
                                 <div class="selected-language" style="cursor: pointer;"
                                     >
-                                    <img src="assets/flags/in.png" />
-                                    <!-- {{country.country_name}} -->
+                                    <img src="assets/flags/{{country.flag}}" />
+                                    {{country.name}}
                                 </div>
                             </li>
                         </ul>
