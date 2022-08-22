@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ApiDataService } from 'src/app/services/api-data.service';
 
@@ -7,12 +8,17 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import { LocalDataService } from 'src/app/services/local-data.service';
+=======
+import {Component, OnInit} from '@angular/core';
+import { ApiDataService } from 'src/app/services/api-data.service';
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
 
 @Component({
     selector: 'app-ndhs-countries',
     templateUrl: './ndhs-countries.component.html',
     styleUrls: ['./ndhs-countries.component.css'],
 })
+<<<<<<< HEAD
 export class NdhsCountriesComponent implements OnInit, AfterViewInit {
     data2021: any;
     data2022: any;
@@ -382,5 +388,25 @@ export class NdhsCountriesComponent implements OnInit, AfterViewInit {
         this._utilities.showHeaderMenu.next(false);
         this._utilities.governanceTypeSource.unsubscribe;
     }
+=======
+export class NdhsCountriesComponent implements OnInit {
+    data2021: any;
+    data2022: any;
+    countries: any;
+    constructor(private apiData: ApiDataService) {
+     }
+
+     ngOnInit(): void {
+        this.apiData.getCountriesData().subscribe((data) => {
+            this.data2021 = data[2021];
+            this.data2022 = data[2022];
+            console.log(this.data2021);
+        })
+
+        setTimeout(() => {
+            this.countries = this.data2021;
+        }, 2000);
+     }
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
 }
 

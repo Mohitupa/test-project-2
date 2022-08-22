@@ -5,10 +5,27 @@
 <div class="two-column-layout">
     <div class="language-sidebar" >
         <div class="example-sidenav-content" >
+<<<<<<< HEAD
             <button type="button" mat-button (click)="drawer.toggle()" disableRipple>
                 <div class="selected-language">
                     <mat-icon>arrow_left</mat-icon><img src="assets/flags/au.png" />
                     <!-- {{ country_name }} -->
+=======
+            <!-- <div class="tooltip-main">
+                <div class="tooltip-option left">
+                    <span class="arrow is-triangle is-left"></span>
+                    <div class="tooltip-inner">
+                        <h5>Check out our new feature</h5>
+                        <p>You can display comparison results by selecting two countries from the list of countries.</p>
+                        <a href="#">Got it!</a>
+                    </div>
+                </div>
+            </div> -->
+            <button type="button" mat-button (click)="drawer.toggle()" disableRipple>
+                <div class="selected-language">
+                    <mat-icon>arrow_left</mat-icon><img src="assets/flags/in.png" />
+                    <!-- {{ country_name }} -->India
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
                 </div>
             </button>
         </div>
@@ -24,7 +41,11 @@
                         </div>
                     </div>
                     <div class="country-list">
+<<<<<<< HEAD
                         <ul *ngFor="let country of this.countryData ">
+=======
+                        <ul *ngFor="let country of countries">
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
                             <li (click)="drawer.close()">
                                 <div class="selected-language" style="cursor: pointer;"
                                     >

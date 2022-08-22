@@ -6,7 +6,10 @@ import * as am5map from '@amcharts/amcharts5/map';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import am5geodata_worldLow from '@amcharts/amcharts5-geodata/worldLow';
 import { ApiDataService } from 'src/app/services/api-data.service';
+<<<<<<< HEAD
 import { LocalDataService } from 'src/app/services/local-data.service';
+=======
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
 
 
 @Component({
@@ -30,7 +33,11 @@ export class NdhsMapComponent implements OnInit, AfterViewInit {
     yearChecked2021 = false;
     yearChecked2022 = true;
 
+<<<<<<< HEAD
     constructor(private router: Router, private apiData: ApiDataService,private localDataService:LocalDataService) { }
+=======
+    constructor(private router: Router, private apiData: ApiDataService) { }
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
     ngAfterViewInit(): void {
         
     }
@@ -110,8 +117,13 @@ export class NdhsMapComponent implements OnInit, AfterViewInit {
 
                 this.container.children.push(this.circle);
 
+<<<<<<< HEAD
                 this.circle.events.on('click', (ev:any) => {
                     this.toDiffrentPage(ev.target.dataItem.dataContext.title);
+=======
+                this.circle.events.on('click', () => {
+                    this.toDiffrentPage();
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
                 });
 
                 this.circle.states.create('hover', {
@@ -225,8 +237,13 @@ export class NdhsMapComponent implements OnInit, AfterViewInit {
                     stroke: am5.color(0xff7b7b),
                 });
 
+<<<<<<< HEAD
                 this.circle.events.on('click', (ev:any) => {
                     this.toDiffrentPage(ev.target.dataItem.dataContext.title);
+=======
+                this.circle.events.on('click', () => {
+                    this.toDiffrentPage();
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
                 });
 
                 return (this.bullet = am5.Bullet.new(this.root, {
@@ -258,8 +275,13 @@ export class NdhsMapComponent implements OnInit, AfterViewInit {
                     stroke: am5.color(0x8fb8ff),
                 });
 
+<<<<<<< HEAD
                 this.circle.events.on('click', (ev:any) => {
                     this.toDiffrentPage(ev.target.dataItem.dataContext.title);
+=======
+                this.circle.events.on('click', () => {
+                    this.toDiffrentPage();
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
                 });
 
                 return (this.bullet = am5.Bullet.new(this.root, {
@@ -288,8 +310,13 @@ export class NdhsMapComponent implements OnInit, AfterViewInit {
                     stroke: am5.color(0xff7b7b),
                 });
 
+<<<<<<< HEAD
                 this.circle.events.on('click', (ev:any) => {
                     this.toDiffrentPage(ev.target.dataItem.dataContext.title);
+=======
+                this.circle.events.on('click', () => {
+                    this.toDiffrentPage();
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
                 });
 
                 return (this.bullet = am5.Bullet.new(this.root, {
@@ -328,8 +355,13 @@ export class NdhsMapComponent implements OnInit, AfterViewInit {
         }
     }
 
+<<<<<<< HEAD
     public toDiffrentPage(c_name:any) {
         this.localDataService.mapSelectedCountry = c_name;
+=======
+    public toDiffrentPage() {
+        // this.router.navigate(['ndhs-countries/1']);
+>>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
         this.router.navigate(['ndhs-countries']);
     }
 }
