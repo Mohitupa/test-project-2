@@ -51,7 +51,7 @@ export class NdhsCountriesComponent implements OnInit {
                 countriesYear = 'Chile';
                 this.countryData = data[2022];
             } else {
-                this.countryData = data[2021];
+                this.data2021 = data[2021];
                 this.data2022 = data[2022];
                 this.countryData = this.data2021.concat(this.data2022);
             }

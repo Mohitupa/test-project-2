@@ -10,8 +10,6 @@ import { ApiDataService } from 'src/app/services/api-data.service';
 import { LocalDataService } from 'src/app/services/local-data.service';
 import { Subscription } from 'rxjs';
 
-
-
 @Component({
     selector: "app-ndhs-map",
     templateUrl: "./ndhs-map.component.html",
@@ -35,6 +33,7 @@ export class NdhsMapComponent implements AfterViewInit, OnDestroy {
     subscription!: Subscription;
     counter: any = 0;
     constructor(private router: Router, private apiData: ApiDataService, private localDataService: LocalDataService, private _ngZone: NgZone) { }
+   
     ngAfterViewInit(): void {
         this.subscription = this.apiData.getCountriesData().subscribe((data) => {
             this.data2021 = data[2021];
