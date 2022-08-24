@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataModalComponent } from '../data-modal/data-modal.component';
-import * as am4core from '@amcharts/amcharts4/core';
+
 
 @Component({
     selector: 'pie-chart-card',

@@ -53,4 +53,26 @@ export class ApiDataService {
       year
     );
   }
+
+  public getDataModelInfo(
+    governance_id: number,
+    development_id: number,
+    taxonomy_id: number,
+    country_id: number,
+    year: number
+  ): Observable<any> {
+    return this.http.get(
+      this.apiUrl +
+      'ndhs-master/taxnomy-detail/' +
+      governance_id +
+      '/' +
+      development_id +
+      '/' +
+      taxonomy_id +
+      '/' +
+      country_id +
+      '/' +
+      year
+    );
+  }
 }
