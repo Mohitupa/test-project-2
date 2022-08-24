@@ -17,6 +17,7 @@ export class NdhsCountriesComponent implements OnInit {
     data2021: any;
     data2022: any;
     countries: any;
+    showFiller = false;
     pie0Loader = true;
     pie1Loader = true;
     pie2Loader = true;

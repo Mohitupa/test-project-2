@@ -8,14 +8,14 @@
                 <div class="list-year">
                     <div class="form-check">
                         <input (click)="selectedYear($event)" class="form-check-input" type="checkbox"
-                            value="2021" id="flexCheckChecked" [checked]="yearChecked2021" [disabled]="!yearChecked2022">
+                            value="2021" id="flexCheckChecked" [checked]="!yearChecked2022">
                         <label class="form-check-label" for="flexCheckChecked" mat-raised-button>
                             2021
                         </label>
                     </div>
                     <div class="form-check">
                         <input (click)="selectedYear($event)" class="form-check-input" type="checkbox"
-                            value="2022" id="flexCheckDefault" [checked]="yearChecked2022" [disabled]="!yearChecked2021">
+                            value="2022" id="flexCheckDefault" [checked]="!yearChecked2021" >
                         <label class="form-check-label" for="flexCheckDefault" for="flexCheckChecked" mat-raised-button>
                             2022
                         </label>
