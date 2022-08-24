@@ -32,10 +32,11 @@
             <button class="active" mat-button>Health & IT</button>
             <button mat-button>Digital Health</button>
         </div> -->
-        <div class="header-tabs" *ngIf="showHeaderMenu" >
-                <button class="active" (click)="toggle(1)" [ngClass]="{ 'active' : governance_id == 1 }" mat-button>Health & IT</button>
-                <button (click)="toggle(2)" [ngClass]="{ 'active' : governance_id == 2 }" mat-button>Digital Health</button>
-                </div>
+        <div class="header-tabs" *ngIf="showHeaderMenu">
+            <button class="active" (click)="toggle(1)" [ngClass]="{ 'active' : governance_id == 1 }" mat-button>Health &
+                IT</button>
+            <button (click)="toggle(2)" [ngClass]="{ 'active' : governance_id == 2 }" mat-button>Digital Health</button>
+        </div>
     </mat-toolbar>
     <!-- toolbar header End -->
 </div>

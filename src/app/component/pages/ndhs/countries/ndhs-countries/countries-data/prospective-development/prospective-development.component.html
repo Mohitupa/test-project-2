@@ -12,168 +12,95 @@
                 </div>
             </div>
             <mat-tab-group mat-align-tabs="end">
-                <mat-tab label="Capacity Building">
-                    <!-- panel one start -->
-                    <div class=" col-md-12 col-xs-12">
-                        <div class="panel">
-                            <div class="table-layout-main">
-                                <ng-container>
-                                    <ng-container >
-                                        <div class="panel-heading">
-                                            <!-- <h2 *ngIf="i == 0">{{ndhsDetails.development_type}}</h2> -->
-                                            <div class="data-heading">
-                                                <h3>
-                                                    <!-- {{taxonomy.name}} -->
-                                                </h3>
-                                                <div class="status-badge">
-                                                    <div class="divider-vertical"></div>
-                                                    <ul>
-                                                        <li><span class="circle_badge success"></span>Yes</li>
-                                                        <li><span class="circle_badge danger"></span>No</li>
-                                                        <li><span class="circle_badge disable-status"></span>Data not
-                                                            available
-                                                        </li>
-                                                    </ul>
+                <div *ngFor="let ultimate_key of objectKeys(prospectiveDevelopmentData); let i = index">
+                    <mat-tab label="{{ultimate_key}}">
+                        <!-- panel one start -->
+                        <div class=" col-md-12 col-xs-12">
+                            <div class="panel">
+                                <div class="table-layout-main"
+                                    *ngFor="let taxonomy_key of objectKeys(prospectiveDevelopmentData[ultimate_key])">
+                                    <ng-container>
+                                        <ng-container>
+                                            <div class="panel-heading">
+                                                <div class="data-heading">
+                                                    <h3>
+                                                        {{taxonomy_key}}
+                                                    </h3>
+                                                    <div class="status-badge">
+                                                        <div class="divider-vertical"></div>
+                                                        <ul>
+                                                            <li><span class="circle_badge success"></span>Yes</li>
+                                                            <li><span class="circle_badge danger"></span>No</li>
+                                                            <li><span class="circle_badge disable-status"></span>Data
+                                                                not
+                                                                available
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="data-status">
+                                                    <h2>
+                                                        {{ultimate_key}}
+                                                    </h2>
                                                 </div>
                                             </div>
-                                            <div class="data-status">
-                                                <h2>
-                                                    <!-- {{ndhsDetails.ultimates[0].name}} -->
-                                                </h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-content">
-                                            <div class="data-table">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col" style="width: 30%;">Indicators</th>
-                                                                <th scope="col" style="width: 50%;">Questions</th>
-                                                                <th scope="col" class="text-end" style="width: 20%;">
-                                                                    <!-- {{ndhsDetails.country_name}} -->
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <ng-container >
-                                                                <tr class="border-less"
-                                                                  >
-                                                                    <td style="width: 30%;"><span
-                                                                            >
-                                                                            <!-- {{question.indicator_name}} -->
-                                                                        </span>
-                                                                    </td>
-                                                                    <td style="width: 50%;">
-                                                                        <!-- {{question.question_name}} -->
-                                                                    </td>
-                                                                    <td style="width: 20%;">
-                                                                        <div class="table-badge">
-                                                                            <span 
-                                                                                class="circle_badge success"></span>
-                                                                            <span 
-                                                                                class="circle_badge danger"></span>
-                                                                            <span
-                                                                                
-                                                                                class="circle_badge disable-status"></span>
-                                                                        </div>
-                                                                    </td>
+                                            <div class="panel-content">
+                                                <div class="data-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col" style="width: 30%;">Indicators</th>
+                                                                    <th scope="col" style="width: 50%;">Questions</th>
+                                                                    <th scope="col" class="text-end"
+                                                                        style="width: 20%;">
+                                                                        {{ this.country}}
+                                                                    </th>
                                                                 </tr>
-                                                            </ng-container>
-                                                        </tbody>
-                                                    </table>
+                                                            </thead>
+                                                            <tbody>
+                                                                <ng-container
+                                                                    *ngFor="let indicators_key of objectKeys(prospectiveDevelopmentData[ultimate_key][taxonomy_key])">
+                                                                    <tr class="border-less"
+                                                                        *ngFor="let question of prospectiveDevelopmentData[ultimate_key][taxonomy_key][indicators_key];let k = index">
+                                                                        <td style="width: 30%;"><span *ngIf="k == 0">
+                                                                                {{indicators_key}}
+                                                                            </span></td>
+                                                                        <td style="width: 50%;">
+                                                                            {{question.question_name}}
+                                                                        </td>
+                                                                        <td style="width: 20%;">
+                                                                            <div class="table-badge">
+                                                                                <span *ngIf="question.ststus == 'Yes'"
+                                                                                    class="circle_badge success"></span>
+                                                                                <span *ngIf="question.ststus == 'No'"
+                                                                                    class="circle_badge danger"></span>
+                                                                                <span
+                                                                                    *ngIf="question.ststus == 'Data not available'"
+                                                                                    class="circle_badge disable-status"></span>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="with-boder"></tr>
+                                                                </ng-container>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </ng-container>
                                     </ng-container>
-                                </ng-container>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- panel one start -->
-                </mat-tab>
-                <mat-tab label="Development Strategy">
-                    <!-- panel one start -->
-                    <div class=" col-md-12 col-xs-12" >
-                        <div class="panel">
-                            <div class="table-layout-main">
-                                <ng-container >
-                                    <ng-container >
-                                        <div class="panel-heading">
-                                            <!-- <h2 *ngIf="i == 0">{{ndhsDetails.development_type}}</h2> -->
-                                            <div class="data-heading">
-                                                <h3>
-                                                    <!-- {{taxonomy.name}} -->
-                                                </h3>
-                                                <div class="status-badge">
-                                                    <div class="divider-vertical"></div>
-                                                    <ul>
-                                                        <li><span class="circle_badge success"></span>Yes</li>
-                                                        <li><span class="circle_badge danger"></span>No</li>
-                                                        <li><span class="circle_badge disable-status"></span>Data not
-                                                            available
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="data-status">
-                                                <h2>
-                                                    <!-- {{ndhsDetails.ultimates[1].name}} -->
-                                                </h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-content">
-                                            <div class="data-table">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col" style="width: 30%;">Indicators</th>
-                                                                <th scope="col" style="width: 50%;">Questions</th>
-                                                                <th scope="col" class="text-end" style="width: 20%;">
-                                                                    <!-- {{ndhsDetails.country_name}} -->
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <ng-container >
-                                                                <tr class="border-less"
-                                                                   >
-                                                                    <td style="width: 30%;"><span
-                                                                    >
-                                                                            <!-- {{question.indicator_name}} -->
-                                                                        </span>
-                                                                    </td>
-                                                                    <td style="width: 50%;">
-                                                                        <!-- {{question.question_name}} -->
-                                                                    </td>
-                                                                    <td style="width: 20%;">
-                                                                        <div class="table-badge">
-                                                                            <span 
-                                                                                class="circle_badge success"></span>
-                                                                            <span 
-                                                                                class="circle_badge danger"></span>
-                                                                            <span
-                                                                            
-                                                                                class="circle_badge disable-status"></span>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="with-boder"></tr>
-                                                            </ng-container>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- panel one start -->
-                </mat-tab>
+                        <!-- panel one start -->
+                    </mat-tab>
+                </div>
             </mat-tab-group>
         </div>
     </div>
+</div>
+
+<div class="loading" *ngIf="isLoading">
+    <div class="spinner"></div>
 </div>

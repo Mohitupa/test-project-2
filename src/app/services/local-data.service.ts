@@ -17,8 +17,10 @@ export class LocalDataService {
   countrySource = new BehaviorSubject<string>('44');
   currentCountry = this.countrySource.asObservable();
 
+  selectedYear:any = ['2021'];
+
   mapSelectedCountry:any = "Australia";
-  // mapSelectedCountry = [this.governanceTypeSource,this.countrySource,this.yearSource];
+
 
   changeYear(message: string) {
       this.yearSource.next(message);

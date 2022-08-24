@@ -5,27 +5,10 @@
 <div class="two-column-layout">
     <div class="language-sidebar" >
         <div class="example-sidenav-content" >
-<<<<<<< HEAD
             <button type="button" mat-button (click)="drawer.toggle()" disableRipple>
                 <div class="selected-language">
-                    <mat-icon>arrow_left</mat-icon><img src="assets/flags/au.png" />
-                    <!-- {{ country_name }} -->
-=======
-            <!-- <div class="tooltip-main">
-                <div class="tooltip-option left">
-                    <span class="arrow is-triangle is-left"></span>
-                    <div class="tooltip-inner">
-                        <h5>Check out our new feature</h5>
-                        <p>You can display comparison results by selecting two countries from the list of countries.</p>
-                        <a href="#">Got it!</a>
-                    </div>
-                </div>
-            </div> -->
-            <button type="button" mat-button (click)="drawer.toggle()" disableRipple>
-                <div class="selected-language">
-                    <mat-icon>arrow_left</mat-icon><img src="assets/flags/in.png" />
-                    <!-- {{ country_name }} -->India
->>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
+                    <mat-icon>arrow_left</mat-icon><img src="assets/flags/{{singleCountryData.flag}}" />
+                    {{ singleCountryData.name }}
                 </div>
             </button>
         </div>
@@ -33,7 +16,7 @@
             <mat-drawer #drawer class="example-sidenav" mode="side" >
                 <div class="search-content">
                     <div class="mat-search">
-                        <a >
+                        <a (click)="drawer.toggle()">
                             <mat-icon>arrow_right</mat-icon>
                         </a>
                         <div class="mat-serach-input">
@@ -41,14 +24,10 @@
                         </div>
                     </div>
                     <div class="country-list">
-<<<<<<< HEAD
-                        <ul *ngFor="let country of this.countryData ">
-=======
-                        <ul *ngFor="let country of countries">
->>>>>>> 0ca5405dbc4c9f4306910749aa895cef5e264246
-                            <li (click)="drawer.close()">
+                        <ul >
+                            <li *ngFor="let country of countryData " (click)="drawer.close()">
                                 <div class="selected-language" style="cursor: pointer;"
-                                    >
+                                (click)="selectCountry(country)">
                                     <img src="assets/flags/{{country.flag}}" />
                                     {{country.name}}
                                 </div>
@@ -73,7 +52,7 @@
                 </div>
                 <div style="display: flex;flex-wrap:wrap;">
                     <div class="panel-content" *ngFor="let pieData of a;let i = index" style="margin: 10px;">
-                        <pie-chart-card [card]="'peiChart0'+i" [isLoading]="pie0Loader"  [pieData]="pie0Data[i]"></pie-chart-card>
+                        <pie-chart-card [cart]="'peiChart0'+i" [isLoading]="pie0Loader"  [pieData]="pie0Data[i]"></pie-chart-card>
                         <!-- {{pie0Data.taxonomy_name}} -->
                     </div>
                 </div>
@@ -89,7 +68,7 @@
                 </div>
                 <div style="display: flex;flex-wrap:wrap;">
                     <div class="panel-content" *ngFor="let pieData of a;let i = index" style="margin: 10px;">
-                        <pie-chart-card [card]="'peiChart1'+i" [isLoading]="pie1Loader" [pieData]="pie1Data[i]"></pie-chart-card>
+                        <pie-chart-card [cart]="'peiChart1'+i" [isLoading]="pie1Loader" [pieData]="pie1Data[i]"></pie-chart-card>
                     </div>
                 </div>
             </div>
@@ -104,7 +83,7 @@
                 </div>
                 <div style="display: flex;flex-wrap:wrap;">
                     <div class="panel-content" *ngFor="let pieData of b;let i = index" style="margin: 10px;">
-                        <pie-chart-card [card]="'peiChart2'+i" [isLoading]="pie2Loader" [pieData]="pie2Data[i]"></pie-chart-card>
+                        <pie-chart-card [cart]="'peiChart2'+i" [isLoading]="pie2Loader" [pieData]="pie2Data[i]"></pie-chart-card>
                     </div>
                 </div>
             </div>
@@ -119,7 +98,7 @@
                 </div>
                 <div style="display: flex;flex-wrap:wrap;">
                     <div class="panel-content" *ngFor="let pieData of b;let i = index" style="margin: 10px;">
-                        <pie-chart-card [card]="'peiChart3'+i" [isLoading]="pie3Loader" [pieData]="pie3Data[i]"></pie-chart-card>
+                        <pie-chart-card [cart]="'peiChart3'+i" [isLoading]="pie3Loader" [pieData]="pie3Data[i]"></pie-chart-card>
                     </div>
                 </div>
             </div>
