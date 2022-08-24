@@ -30,7 +30,6 @@ export class PieChartCardComponent implements OnInit {
     }
 
     showData() {
-
         let dialogRef = this.dialog.open(DataModalComponent, {
             width: '80%',
             height: '90%',
