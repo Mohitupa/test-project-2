@@ -15,8 +15,12 @@
                                     matTooltipPosition="left"
                                     aria-tooltip="Button that displays and hides a tooltip triggered by other buttons">
                                     <mat-label>Search Country</mat-label>
-                                    <mat-select #mySelect [formControl]="toppings" multiple (selectionChange)="selectedCountryArray($event)">
-                                        <mat-option #selectedMapData *ngFor="let country of countryData" [value]="country" (click)="comparativeResultSelectedMapData(country,selectedMapData)">
+                                    <mat-select #mySelect [formControl]="toppings" multiple
+                                        (selectionChange)="selectedCountryArray($event)">
+                                   
+                                        <mat-option #selectedMapData *ngFor="let country of countryData"
+                                            [value]="country"
+                                            (click)="comparativeResultSelectedMapData(country,selectedMapData)">
                                             {{country.name}}
                                         </mat-option>
                                     </mat-select>
@@ -49,11 +53,11 @@
                                 <h5>Comparative table</h5>
                                 <div class="status-badge">
                                     <ul>
-                                        <li><span class="circle_badge success"></span>
-                                            <!-- {{ mapCountryData[0].name }} -->
-                                        </li>
                                         <li><span class="circle_badge danger"></span>
-                                            <!-- {{ mapCountryData[1].name }} -->
+                                            <span *ngIf="mapCountryData.length == 2">{{this.mapCountryData[1].name}}</span>
+                                        </li>
+                                        <li><span class="circle_badge success"></span>
+                                            {{mapCountryData[0].name}}
                                         </li>
                                     </ul>
                                 </div>
@@ -76,26 +80,30 @@
                                                 <td style="width:39%"><span
                                                         class="circle_badge success"></span>Availability</td>
                                                 <td style="width:35%">
-                                                    <ng-container>
-                                                        <span class="square-badge success">
-                                                            <!-- {{availability.percentage}}% -->
+                                                    <ng-container *ngFor="let data of persantageResult">
+                                                        <span
+                                                            *ngIf="data['Present Development-Availability-General Health-1']"
+                                                            class="square-badge success">
+                                                            {{data['Present Development-Availability-General Health-1']}}%
                                                         </span>
-                                                        <span class="square-badge danger">
-                                                            <!-- {{availability.percentage}}% -->
+                                                        <span
+                                                            *ngIf="data['Present Development-Availability-General Health-2']"
+                                                            class="square-badge danger">
+                                                            {{data['Present Development-Availability-General Health-2']}}%
                                                         </span>
                                                     </ng-container>
                                                 </td>
                                                 <td style="width:38%">
-                                                    <ng-container >
-                                                        <span
-                                                           
+                                                    <ng-container *ngFor="let data of persantageResult">
+                                                        <span 
+                                                        *ngIf="data['Present Development-Availability-Digital Health-1']"
                                                             class="square-badge success">
-                                                            <!-- {{availability.percentage}}% -->
+                                                            {{data['Present Development-Availability-Digital Health-1']}}%
                                                         </span>
-                                                        <span
-                                                           
-                                                            class="square-badge danger">
-                                                            <!-- {{availability.percentage}}% -->
+                                                        <span 
+                                                        *ngIf="data['Present Development-Availability-Digital Health-2']"
+                                                        class="square-badge danger">
+                                                            {{data['Present Development-Availability-Digital Health-2']}}%
                                                         </span>
                                                     </ng-container>
                                                 </td>
@@ -104,30 +112,32 @@
                                                 <td style="width:39%"><span
                                                         class="circle_badge success"></span>Readiness</td>
                                                 <td style="width:35%">
-                                                    <ng-container >
+                                                    <ng-container *ngFor="let data of persantageResult">
                                                         <span
-                                                          
+                                                            *ngIf="data['Present Development-Readiness-General Health-1']"
                                                             class="square-badge success">
-                                                            <!-- {{readiness.percentage}}% -->
+                                                            {{data['Present Development-Readiness-General Health-1']}}%
                                                         </span>
                                                         <span
+                                                            *ngIf="data['Present Development-Readiness-General Health-2']"
                                                             class="square-badge danger">
-                                                            <!-- {{readiness.percentage}}% -->
+                                                            {{data['Present Development-Readiness-General Health-2']}}%
                                                         </span>
                                                     </ng-container>
                                                 </td>
                                                 <td style="width:38%">
-                                                    <ng-container >
+                                                    <ng-container *ngFor="let data of persantageResult">
                                                         <span
-                                                            
-                                                            class="square-badge success">
-                                                            <!-- {{readiness.percentage}}% -->
+                                                        class="square-badge success"
+                                                            *ngIf="data['Present Development-Readiness-Digital Health-1']"
+                                                            >
+                                                            {{data['Present Development-Readiness-Digital Health-1']}}%
                                                         </span>
-                                                        <span
-                                                            
-                                                            class="square-badge danger">
-                                                            <!-- {{readiness.percentage}}% -->
-                                                        </span>
+                                                        <span class="square-badge danger"
+                                                        *ngIf="data['Present Development-Readiness-Digital Health-2']"
+                                                        >
+                                                        {{data['Present Development-Readiness-Digital Health-2']}}%
+                                                    </span>
                                                     </ng-container>
                                                 </td>
                                             </tr>
@@ -141,30 +151,31 @@
                                                 <td style="width:39%"><span class="circle_badge success"></span>Capacity
                                                     Building</td>
                                                 <td style="width:35%">
-                                                    <ng-container >
-                                                        <span
-                                                            
-                                                            class="square-badge success">
-                                                            <!-- {{capacity_building.percentage}}% -->
+                                                    <ng-container *ngFor="let data of persantageResult">
+                                                        <span class="square-badge success"
+                                                        *ngIf="data['Prospective Development-Capacity Building-General Health-1']"
+                                                        >
+                                                        {{data['Prospective Development-Capacity Building-General Health-1']}}%
                                                         </span>
-                                                        <span
-                                                           
-                                                            class="square-badge danger">
                                                             <!-- {{capacity_building.percentage}}% -->
+                                                        <span class="square-badge danger"
+                                                        *ngIf="data['Prospective Development-Capacity Building-General Health-2']"
+                                                        >
+                                                        {{data['Prospective Development-Capacity Building-General Health-2']}}%
                                                         </span>
                                                     </ng-container>
                                                 </td>
                                                 <td style="width:38%">
-                                                    <ng-container >
-                                                        <span
-                                                          
-                                                            class="square-badge success">
-                                                            <!-- {{capacity_building.percentage}}% -->
+                                                    <ng-container *ngFor="let data of persantageResult">
+                                                        <span class="square-badge success"
+                                                        *ngIf="data['Prospective Development-Capacity Building-Digital Health-1']"
+                                                        >
+                                                        {{data['Prospective Development-Capacity Building-Digital Health-1']}}%
                                                         </span>
-                                                        <span
-                                                            
-                                                            class="square-badge danger">
-                                                            <!-- {{capacity_building.percentage}}% -->
+                                                        <span class="square-badge danger"
+                                                        *ngIf="data['Prospective Development-Capacity Building-Digital Health-2']"
+                                                        >
+                                                        {{data['Prospective Development-Capacity Building-Digital Health-2']}}%
                                                         </span>
                                                     </ng-container>
                                                 </td>
@@ -173,32 +184,30 @@
                                                 <td style="width:39%"><span
                                                         class="circle_badge success"></span>Development Strategy</td>
                                                 <td style="width:35%">
-                                                    <ng-container
-                                                       >
-                                                        <span
-                                                           
-                                                            class="square-badge success">
-                                                            <!-- {{development_strategy.percentage}}% -->
+                                                    <ng-container *ngFor="let data of persantageResult">
+                                                        <span class="square-badge success"
+                                                        *ngIf="data['Prospective Development-Development Strategy-General Health-1']"
+                                                        >
+                                                        {{data['Prospective Development-Development Strategy-General Health-1']}}%
                                                         </span>
-                                                        <span
-                                                           
-                                                            class="square-badge danger">
-                                                            <!-- {{development_strategy.percentage}}% -->
+                                                        <span class="square-badge danger"
+                                                        *ngIf="data['Prospective Development-Development Strategy-General Health-2']"
+                                                        >
+                                                        {{data['Prospective Development-Development Strategy-General Health-2']}}%
                                                         </span>
                                                     </ng-container>
                                                 </td>
                                                 <td style="width:38%">
-                                                    <ng-container
+                                                    <ng-container *ngFor="let data of persantageResult">
+                                                        <span class="square-badge success"
+                                                        *ngIf="data['Prospective Development-Development Strategy-Digital Health-1']"
                                                         >
-                                                        <span
-                                                           
-                                                            class="square-badge success">
-                                                            <!-- {{development_strategy.percentage}}% -->
+                                                        {{data['Prospective Development-Development Strategy-Digital Health-1']}}%
                                                         </span>
-                                                        <span
-                                                           
-                                                            class="square-badge danger">
-                                                            <!-- {{development_strategy.percentage}}% -->
+                                                        <span class="square-badge danger"
+                                                        *ngIf="data['Prospective Development-Development Strategy-Digital Health-2']"
+                                                        >
+                                                        {{data['Prospective Development-Development Strategy-Digital Health-2']}}%
                                                         </span>
                                                     </ng-container>
                                                 </td>

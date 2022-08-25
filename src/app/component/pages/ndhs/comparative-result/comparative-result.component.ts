@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 import * as am5 from '@amcharts/amcharts5';
 import * as am5map from '@amcharts/amcharts5/map';
@@ -32,49 +33,48 @@ export class ComparativeResultComponent {
   availability: any = [];
   capacity_building: any = [];
   development_strategy: any = [];
+  country_ids: any;
 
   constructor(private router: Router, private apiDataService: ApiDataService, private localDataService: LocalDataService) { }
 
   ngOnInit(): void {
-    if(this.mapCountryData == '') {
-     this.mapCountryData = [
-        {
-          flag: "in.png",
-          id: 103,
-          iso_code: "IN",
-          lat: "20.593684",
-          lng: "78.96288",
-          name: "India",
-          year: 2021,
-        },
-        {
-          flag: "us.png",
-          id: 228,
-          iso_code: "US",
-          lat: "37.09024",
-          lng: "-95.712891",
-          name: "USA",
-          year: 2021,
-        }
-      ]
-    } 
 
     this.apiDataService.getCountriesData().subscribe((data) => {
+
       this.year = this.localDataService.selectedYear;
-      let countriesYear = this.localDataService.mapSelectedCountry;
       if (this.year[0] == '2021' && this.year.length == 1) {
+        this.country_ids = environment.default_country_2021;
         this.countryData = data[2021];
       } else if (this.year[0] == '2022' && this.year.length == 1) {
-        countriesYear = 'Chile';
+        this.country_ids = environment.default_country_2022;
         this.countryData = data[2022];
       } else {
+        this.country_ids = environment.default_country_2021;
         this.data2021 = data[2021];
         this.data2022 = data[2022];
         this.countryData = this.data2021.concat(this.data2022);
       }
-      this.comparativeResultMap();
-      this.comparativeResultNetworkChart();
-      this.comparativeResultData();
+      let default_contry = {
+        countries: this.country_ids
+      }
+
+      this.apiDataService.getdefaultCountry(default_contry).subscribe(data => {
+        console.log(data);
+
+        for (let i = 0; i < 2; i++) {
+          data[i]['id'] = data[i]['country_id']
+          data[i]['name'] = data[i]['country_name']
+          delete data[i]['country_name'];
+        }
+
+        if (data) {
+          this.mapCountryData = data;
+          this.comparativeResultMap();
+          this.comparativeResultNetworkChart();
+          this.comparativeResultData();
+        }
+      })
+
     });
   }
 
@@ -83,92 +83,79 @@ export class ComparativeResultComponent {
   }
 
   selectedCountryArray(ev: any) {
-    if (ev['value'].length < 3) {
+
+    if (ev['value'].length < 3 || ev['value'].length < 2) {
       this.mapCountryData = ev['value'];
       this.mySelect.close();
     } else {
       if (ev['value'].length > 2) {
         ev['value'].splice(0, 1)
+        console.log(ev['value']);
         this.toppings.setValue(ev['value']);
         this.mapCountryData = ev['value'];
       }
       this.mySelect.close();
     }
   }
-  
-  persantageResult:any = [];
-  
+
+  persantageResult: any = [];
+
 
   comparativeResultData() {
-
     console.log(this.mapCountryData);
-    
 
-    // let data = {
-    //   countries: '74,228',
-    //   developmentId: '1,2',
-    //   year: '2021',
-    // };
+    if (this.mapCountryData.length == 2) {
+      let data = {
+        countries: this.mapCountryData[0].id + ',' + this.mapCountryData[1].id,
+        developmentId: '1,2',
+        year: '2021,2022',
+      };
 
-    let data = {
-      countries: '74,228',
-      developmentId: '1,2',
-      year: '2021',
-    };
+      this.apiDataService.getComparativeResultData(data).subscribe(
+        (responseData: any) => {
 
-    this.apiDataService.getComparativeResultData(data).subscribe(
-      (responseData: any) => {
-        console.log(responseData);
-        let hIT = [];
-        let DH = []
-
-        let obj = [{
-          'Present Development': {
-            'Availability': {
-              "General Health": [],
-              'Digital Health': [],
+          let obj = [{
+            'Present Development': {
+              'Availability': {
+                "General Health": [],
+                'Digital Health': [],
+              },
+              'Readiness': {
+                "General Health": [],
+                'Digital Health': [],
+              },
             },
-            'Readiness': {
-              "General Health": [],
-              'Digital Health': [],
-            },
-          },
-          'Prospective Development': {
-            'Capacity Building': {
-              "General Health": [],
-              'Digital Health': [],
-            },
-            'Development Strategy': {
-              "General Health": [],
-              'Digital Health': [],
+            'Prospective Development': {
+              'Capacity Building': {
+                "General Health": [],
+                'Digital Health': [],
+              },
+              'Development Strategy': {
+                "General Health": [],
+                'Digital Health': [],
+              }
             }
-          }
-        }];
+          }];
 
+          responseData.filter((item: any) => {
+            for (const [key, val] of Object.entries(obj[0])) {
+              for (const [key1, val1] of Object.entries(val)) {
+                for (const [key2, val2] of Object.entries(val1)) {
+                  if (item.development_type == key && item.ultimate_field == key1 && item.country == this.mapCountryData[0].name && item.governance_name == key2) {
+                    let findData: any = key + '-' + key1 + '-' + key2 + '-1';
+                    this.persantageResult.push({ [findData]: item.percentage })
+                  }
 
-
-        responseData.filter((item: any) => {
-          for (const [key, val] of Object.entries(obj[0])) {
-            for (const [key1, val1] of Object.entries(val)) {
-              for (const [key2, val2] of Object.entries(val1)) {
-                if (item.development_type == key && item.ultimate_field == key1 && item.country == 'UK' && item.governance_name == key2) {
-                  console.log(key + " - " + key1 + " - " + key2 + " - " + item.percentage)
-                  let findData: any = key+'-'+key1+'-'+key2
-                  this.persantageResult.push({[findData]:item.percentage})
-                }
-
-                if (item.development_type == key && item.ultimate_field == key1 && item.country == 'USA' && item.governance_name == key2) {
-                  console.log(key + " - " + key1 + " - " + key2 + " - " + item.percentage)
-                  let findData: any = key+'-'+key1+'-'+key2
-                  this.persantageResult.push({[findData]:item.percentage})
+                  if (item.development_type == key && item.ultimate_field == key1 && item.country == this.mapCountryData[1].name && item.governance_name == key2) {
+                    let findData: any = key + '-' + key1 + '-' + key2 + '-2';
+                    this.persantageResult.push({ [findData]: item.percentage })
+                  }
                 }
               }
             }
-          }
-        });
-
-        console.log(this.persantageResult);
-      })
+          });
+        })
+    }
   }
 
   comparativeResultSelectedMapData(countryData: any, selected: any) {
@@ -184,7 +171,7 @@ export class ComparativeResultComponent {
       }
     });
 
-    let cities:any;
+    let cities: any;
 
     if (this.mapCountryData != "") {
       cities = this.mapCountryData;
@@ -301,6 +288,9 @@ export class ComparativeResultComponent {
     });
 
     for (var i = 0; i < cities.length; i++) {
+      // if(cities[i].country_name) {
+      //   cities[i]
+      // }
       let city: any = cities[i];
       addCity(city.lng, city.lat, city.name, city.flag);
     }
@@ -314,10 +304,6 @@ export class ComparativeResultComponent {
     }
 
     chart.appear(1000, 100);
-  }
-
-  public toDiffrentPage() {
-    this.router.navigate(['/home']);
   }
 
   comparativeResultNetworkChart() {

@@ -79,4 +79,9 @@ export class ApiDataService {
   public getComparativeResultData(data: any): Observable<any> {
     return this.http.post(this.apiUrl + 'ndhs-master/comparative', data);
   }
+
+  public getdefaultCountry(data: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'ndhs-master/default-country', data);
+  }
+
 }
