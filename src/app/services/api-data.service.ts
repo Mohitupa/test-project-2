@@ -75,4 +75,8 @@ export class ApiDataService {
       year
     );
   }
+
+  public getComparativeResultData(data: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'ndhs-master/comparative', data);
+  }
 }

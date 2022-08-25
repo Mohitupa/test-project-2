@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as am5 from '@amcharts/amcharts5';
@@ -26,9 +26,39 @@ export class ComparativeResultComponent {
   root: any;
   mapCountryData: any = [];
 
+  @ViewChild('mySelect') mySelect: ElementRef | any;
+  comparitive_countries: any = [];
+  readiness: any = [];
+  availability: any = [];
+  capacity_building: any = [];
+  development_strategy: any = [];
+
   constructor(private router: Router, private apiDataService: ApiDataService, private localDataService: LocalDataService) { }
 
   ngOnInit(): void {
+    if(this.mapCountryData == '') {
+     this.mapCountryData = [
+        {
+          flag: "in.png",
+          id: 103,
+          iso_code: "IN",
+          lat: "20.593684",
+          lng: "78.96288",
+          name: "India",
+          year: 2021,
+        },
+        {
+          flag: "us.png",
+          id: 228,
+          iso_code: "US",
+          lat: "37.09024",
+          lng: "-95.712891",
+          name: "USA",
+          year: 2021,
+        }
+      ]
+    } 
+
     this.apiDataService.getCountriesData().subscribe((data) => {
       this.year = this.localDataService.selectedYear;
       let countriesYear = this.localDataService.mapSelectedCountry;
@@ -44,6 +74,7 @@ export class ComparativeResultComponent {
       }
       this.comparativeResultMap();
       this.comparativeResultNetworkChart();
+      this.comparativeResultData();
     });
   }
 
@@ -51,16 +82,99 @@ export class ComparativeResultComponent {
 
   }
 
-  comparativeResultSelectedMapData(countryData: any, selected: any) {
-    console.log(countryData);
-    console.log(selected._selected);
-    if (selected._selected) {
-      this.mapCountryData.push(countryData);
+  selectedCountryArray(ev: any) {
+    if (ev['value'].length < 3) {
+      this.mapCountryData = ev['value'];
+      this.mySelect.close();
     } else {
-      this.mapCountryData.splice(this.mapCountryData.indexOf(countryData), 1);
+      if (ev['value'].length > 2) {
+        ev['value'].splice(0, 1)
+        this.toppings.setValue(ev['value']);
+        this.mapCountryData = ev['value'];
+      }
+      this.mySelect.close();
     }
+  }
+  
+  persantageResult:any = [];
+  
+
+  comparativeResultData() {
+
     console.log(this.mapCountryData);
+    
+
+    // let data = {
+    //   countries: '74,228',
+    //   developmentId: '1,2',
+    //   year: '2021',
+    // };
+
+    let data = {
+      countries: '74,228',
+      developmentId: '1,2',
+      year: '2021',
+    };
+
+    this.apiDataService.getComparativeResultData(data).subscribe(
+      (responseData: any) => {
+        console.log(responseData);
+        let hIT = [];
+        let DH = []
+
+        let obj = [{
+          'Present Development': {
+            'Availability': {
+              "General Health": [],
+              'Digital Health': [],
+            },
+            'Readiness': {
+              "General Health": [],
+              'Digital Health': [],
+            },
+          },
+          'Prospective Development': {
+            'Capacity Building': {
+              "General Health": [],
+              'Digital Health': [],
+            },
+            'Development Strategy': {
+              "General Health": [],
+              'Digital Health': [],
+            }
+          }
+        }];
+
+
+
+        responseData.filter((item: any) => {
+          for (const [key, val] of Object.entries(obj[0])) {
+            for (const [key1, val1] of Object.entries(val)) {
+              for (const [key2, val2] of Object.entries(val1)) {
+                if (item.development_type == key && item.ultimate_field == key1 && item.country == 'UK' && item.governance_name == key2) {
+                  console.log(key + " - " + key1 + " - " + key2 + " - " + item.percentage)
+                  let findData: any = key+'-'+key1+'-'+key2
+                  this.persantageResult.push({[findData]:item.percentage})
+                }
+
+                if (item.development_type == key && item.ultimate_field == key1 && item.country == 'USA' && item.governance_name == key2) {
+                  console.log(key + " - " + key1 + " - " + key2 + " - " + item.percentage)
+                  let findData: any = key+'-'+key1+'-'+key2
+                  this.persantageResult.push({[findData]:item.percentage})
+                }
+              }
+            }
+          }
+        });
+
+        console.log(this.persantageResult);
+      })
+  }
+
+  comparativeResultSelectedMapData(countryData: any, selected: any) {
+    this.persantageResult = [];
     this.comparativeResultMap();
+    this.comparativeResultData();
   }
 
   comparativeResultMap() {
@@ -70,26 +184,7 @@ export class ComparativeResultComponent {
       }
     });
 
-    let cities = [
-      {
-        flag: "in.png",
-        id: 103,
-        iso_code: "IN",
-        lat: "20.593684",
-        lng: "78.96288",
-        name: "India",
-        year: 2021,
-      },
-      {
-        flag: "us.png",
-        id: 228,
-        iso_code: "US",
-        lat: "37.09024",
-        lng: "-95.712891",
-        name: "USA",
-        year: 2021,
-      }
-    ];
+    let cities:any;
 
     if (this.mapCountryData != "") {
       cities = this.mapCountryData;
@@ -167,7 +262,7 @@ export class ComparativeResultComponent {
         tooltipHTML: `
         <div style="width:130px;text-align:center; background:#fff; padding:10px; box-shadow: 0px 5px 10px rgba(111, 111, 111, 0.2); border-radius:4px; border-radius:1px;">
             <img src="{flag}" width="20px" height="20px" style="border-radius:50%"><br>
-            <span style="color:rgba(0, 0, 0, 0.32);font-size:12px;">{name}</span><div style="text-align:center;width:100%;display: flex;justify-content: center;"></div>
+            <span style="color:rgba(0, 0, 0, 0.32);font-size:12px;">`+ c.name + `</span><div style="text-align:center;width:100%;display: flex;justify-content: center;"></div>
         </div>
         `,
         showTooltipOn: "always",
@@ -189,18 +284,6 @@ export class ComparativeResultComponent {
           tooltipY: 0,
           fill: am5.color(0xED322C),
           strokeOpacity: 0,
-          // tooltip: am5.Tooltip.new(this.root, {
-          //   paddingBottom: 0,
-          //   paddingRight: 0,
-          //   paddingLeft: 0,
-          //   paddingTop: 0
-          // }),
-          // tooltipHTML: `
-          // <div style="width:130px;text-align:center; background:#fff; padding:10px; box-shadow: 0px 5px 10px rgba(111, 111, 111, 0.2); border-radius:4px; border-radius:1px;">
-          //     <img src="{flag}" width="20px" height="20px" style="border-radius:50%"><br>
-          //     <span style="color:rgba(0, 0, 0, 0.32);font-size:12px;">{title}</span><div style="text-align:center;width:100%;display: flex;justify-content: center;"></div>
-          // </div>
-          //     `
         })
       );
 
@@ -304,21 +387,5 @@ export class ComparativeResultComponent {
       myChart.setOption(option);
     });
   }
-
-  selectedCountryArray(ev: any) {
-    // console.log(ev);
-    // console.log(this.toppings.value);
-    console.log(ev['value']);
-
-    // if(ev['value'].length < 3) {
-    //   this.r = (ev['value'])
-    //   console.log(ev['value']);
-    // } else {
-    //   this.toppings.value = this.r
-    // console.log(this.toppings.value);
-
-    // }
-  }
-
 }
 
