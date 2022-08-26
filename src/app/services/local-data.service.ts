@@ -10,4 +10,5 @@ export class LocalDataService {
   currentGovernanceType = this.governanceTypeSource.asObservable();
   selectedYear:any = ['2021'];
   mapSelectedCountry:any = "Australia";
+  mapData2CountryData:any = []
 }

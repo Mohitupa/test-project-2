@@ -84,4 +84,22 @@ export class ApiDataService {
     return this.http.post(this.apiUrl + 'ndhs-master/default-country', data);
   }
 
+  public getComparativeOverview(data: any): Observable<any> {
+    return this.http.post(
+      this.apiUrl + 'ndhs-master/comparative-overview',
+      data
+    );
+  }
+
+  public getComparativeInformation(data: any): Observable<any> {
+    return this.http.post(
+      this.apiUrl + 'ndhs-master/comparative-information',
+      data
+    );
+  }
+
+  public getTopCountriesData(data: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'ndhs-master/top-countries', data);
+  }
+
 }

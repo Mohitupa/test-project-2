@@ -1,807 +1,328 @@
 <!-- <div class="loader-overlay" *ngIf="showloader">
-    <img src="../../../../../assets/images/loader.gif" alt="" />
+<img src="../../../../../assets/images/loader.gif" alt="" />
 </div> -->
 <div class="two-column-layout">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8 col-sm-12 col-xs-12">
-                <!-- panel one start -->
-                <div class="panel country-selector">
-                    <div class="panel-content">
-                        <div class="select-country-area">
-                            <div class="country-label">
-                                <!-- <h1>{{development_name}}</h1><span>{{ultimate_type}}</span> -->
-                            </div>
-                            <!-- country dropdown start -->
-                            <div class="country-dropdown">
-                                <div class="tooltip-main">
-                                    <div class="tooltip-option left">
-                                        <span class="arrow is-triangle is-left"></span>
-                                        <div class="tooltip-inner">
-                                            <h5>Check out our new feature</h5>
-                                            <p>You can display comparison results by selecting two countries from the list of countries.</p>
-                                            <a href="#">Got it!</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <mat-form-field appearance="fill" disableRipple for="flexCheckChecked" mat-raised-button>
-                                    <mat-label>Search Country</mat-label>
-                                    <mat-select  #mySelect  multiple >
-                                        <mat-option  >
-                                            <!-- {{country.country_name}} -->
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <div class="print-btn" >
-                                    <a mat-raised-button><svg xmlns="http://www.w3.org/2000/svg" width="13" height="17"
-                                            viewBox="0 0 13 17" fill="none">
-                                            <path
-                                                d="M3 14.6987H10V12.0866H3V14.6987ZM3 8.16839H10V4.25021H8.75C8.54167 4.25021 8.36458 4.15498 8.21875 3.96451C8.07292 3.77404 8 3.54276 8 3.27066V1.63809H3V8.16839ZM12 8.82142C12 8.64456 11.9505 8.4915 11.8516 8.36226C11.7526 8.23301 11.6354 8.16839 11.5 8.16839C11.3646 8.16839 11.2474 8.23301 11.1484 8.36226C11.0495 8.4915 11 8.64456 11 8.82142C11 8.99828 11.0495 9.15133 11.1484 9.28058C11.2474 9.40983 11.3646 9.47445 11.5 9.47445C11.6354 9.47445 11.7526 9.40983 11.8516 9.28058C11.9505 9.15133 12 8.99828 12 8.82142ZM13 8.82142V13.0661C13 13.1545 12.9753 13.2311 12.9258 13.2957C12.8763 13.3603 12.8177 13.3926 12.75 13.3926H11V15.0252C11 15.2973 10.9271 15.5286 10.7812 15.719C10.6354 15.9095 10.4583 16.0047 10.25 16.0047H2.75C2.54167 16.0047 2.36458 15.9095 2.21875 15.719C2.07292 15.5286 2 15.2973 2 15.0252V13.3926H0.25C0.182292 13.3926 0.123698 13.3603 0.0742188 13.2957C0.0247396 13.2311 0 13.1545 0 13.0661V8.82142C0 8.28403 0.147135 7.82317 0.441406 7.43883C0.735677 7.0545 1.08854 6.86233 1.5 6.86233H2V1.31158C2 1.03948 2.07292 0.808199 2.21875 0.617732C2.36458 0.427265 2.54167 0.332031 2.75 0.332031H8C8.20833 0.332031 8.4375 0.400055 8.6875 0.536103C8.9375 0.672151 9.13542 0.835408 9.28125 1.02588L10.4688 2.57682C10.6146 2.76729 10.7396 3.02578 10.8438 3.35229C10.9479 3.67881 11 3.97811 11 4.25021V6.86233H11.5C11.9115 6.86233 12.2643 7.0545 12.5586 7.43883C12.8529 7.82317 13 8.28403 13 8.82142Z"
-                                                fill="white" />
-                                        </svg>Print</a>
-                                </div>
-                            </div>
-                            <!-- country dropdown End -->
-                        </div>
-                        <div class="status-badge top-badge">
-                            <ul >
-                                <li><span class="circle_badge square success"></span>Yes</li>
-                                <li><span class="circle_badge square danger"></span>No</li>
-                                <li><span class="circle_badge square gray"></span>No Data Available</li>
-                            </ul>
-                        </div>
-                        <!-- details content start -->
-                        <div class="details-content">
-                            <div class="vertical-tab-area">
-                                <div class="toggle-tab-button">
-                                    <button type="button"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="9"
-                                            viewBox="0 0 12 9" fill="none">
-                                            <path
-                                                d="M1.1825 1.81459L3.79946 4.19568L1.1825 6.56714C0.983589 6.74738 0.871843 6.99185 0.871843 7.24676C0.871843 7.50167 0.983589 7.74614 1.1825 7.92639C1.3814 8.10663 1.65118 8.20789 1.93248 8.20789C2.21378 8.20789 2.48355 8.10663 2.68246 7.92639L6.06536 4.87049C6.16398 4.7813 6.24222 4.67537 6.2956 4.55875C6.34899 4.44213 6.37646 4.31712 6.37646 4.19086C6.37646 4.06461 6.34899 3.93959 6.2956 3.82297C6.24222 3.70635 6.16398 3.60042 6.06536 3.51124L2.68246 0.455338C2.58397 0.366088 2.46705 0.295291 2.33837 0.24699C2.20968 0.198688 2.07176 0.173828 1.93248 0.173828C1.79319 0.173828 1.65527 0.198688 1.52659 0.24699C1.39791 0.295291 1.28099 0.366088 1.1825 0.455338C1.08401 0.544587 1.00588 0.650542 0.952579 0.767152C0.899278 0.883762 0.871843 1.00874 0.871843 1.13496C0.871843 1.26118 0.899278 1.38616 0.952579 1.50277C1.00588 1.61938 1.08401 1.72534 1.1825 1.81459Z"
-                                                fill="white" fill-opacity="0.8" />
-                                            <path
-                                                d="M6.49939 1.79798L9.11635 4.17908L6.49939 6.55054C6.30048 6.73078 6.18874 6.97525 6.18874 7.23016C6.18874 7.48507 6.30048 7.72954 6.49939 7.90978C6.6983 8.09003 6.96808 8.19129 7.24937 8.19129C7.53067 8.19129 7.80045 8.09003 7.99936 7.90978L11.3823 4.85388C11.4809 4.7647 11.5591 4.65877 11.6125 4.54215C11.6659 4.42553 11.6934 4.30051 11.6934 4.17426C11.6934 4.04801 11.6659 3.92299 11.6125 3.80637C11.5591 3.68975 11.4809 3.58382 11.3823 3.49464L7.99936 0.438736C7.90087 0.349486 7.78394 0.27869 7.65526 0.230388C7.52658 0.182087 7.38866 0.157227 7.24937 0.157227C7.11009 0.157227 6.97217 0.182087 6.84349 0.230388C6.7148 0.27869 6.59788 0.349486 6.49939 0.438736C6.4009 0.527985 6.32278 0.63394 6.26947 0.75055C6.21617 0.86716 6.18874 0.992142 6.18874 1.11836C6.18874 1.24458 6.21617 1.36956 6.26947 1.48617C6.32278 1.60278 6.4009 1.70874 6.49939 1.79798Z"
-                                                fill="white" fill-opacity="0.8" />
-                                        </svg></button>
-                                        <div class="tooltip-main">
-                                            <div class="tooltip-option right">
-                                                <span class="arrow is-triangle is-left"></span>
-                                                <div class="tooltip-inner">
-                                                    <h5>Check out our new feature</h5>
-                                                    <p>You can display comparison results by selecting two countries from the list of countries.</p>
-                                                    <a href="#">Got it!</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-8 col-sm-12 col-xs-12">
+<!-- panel one start -->
+<div class="panel country-selector">
+<div class="panel-content">
+<div class="select-country-area">
+<div class="country-label">
+<h1>{{development_name}}</h1><span>{{ultimate_name}}</span>
+</div>
+<!-- country dropdown start -->
+<div class="country-dropdown">
+<div class="tooltip-main">
+<div class="tooltip-option left">
+<span class="arrow is-triangle is-left"></span>
+<div class="tooltip-inner">
+<h5>Check out our new feature</h5>
+<p>You can display comparison results by selecting two countries from the
+list of countries.</p>
+<a href="#">Got it!</a>
+</div>
+</div>
+</div>
+<mat-form-field appearance="fill" disableRipple for="flexCheckChecked" mat-raised-button
+#tooltip="matTooltip"
+matTooltip="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+matTooltipPosition="left"
+aria-tooltip="Button that displays and hides a tooltip triggered by other buttons">
+<mat-label>Search Country</mat-label>
+<mat-select #mySelect [formControl]="toppings" multiple
+(selectionChange)="selectedCountryArray($event)">
 
-                                <div class="tab-nodes-area">
-                                    <div class="vertical-tab-tree">
-                                        <ul>
-                                            <div class="main-li" id="present_development">
-                                                <li class="parent-li" data-tag="one" id="present_deve" 
-                                                   >
-                                                    <a class="toggleSubmenu1">Present Development</a>
-                                                </li>
-                                                <ul class="sub-category">
-                                                    <li data-tag="two" id="availability">
-                                                        <a class="md-text"
-                                                           >Availability</a>
-                                                    </li>
-                                                    <li data-tag="three">
-                                                        <a class="md-text" >Readiness</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="main-li" id="prospective_development">
-                                                <li class="parent-li" data-tag="four" 
-                                                    >
-                                                    <a class="toggleSubmenu1" >Prospective Development</a>
+<mat-option #selectedMapData *ngFor="let country of countryData"
+[value]="country"
+(click)="comparativeResultSelectedMapData(country,selectedMapData)">
+{{country.name}}
+</mat-option>
+</mat-select>
+</mat-form-field>
+<div class="print-btn">
+<a mat-raised-button><svg xmlns="http://www.w3.org/2000/svg" width="13" height="17"
+viewBox="0 0 13 17" fill="none">
+<path
+d="M3 14.6987H10V12.0866H3V14.6987ZM3 8.16839H10V4.25021H8.75C8.54167 4.25021 8.36458 4.15498 8.21875 3.96451C8.07292 3.77404 8 3.54276 8 3.27066V1.63809H3V8.16839ZM12 8.82142C12 8.64456 11.9505 8.4915 11.8516 8.36226C11.7526 8.23301 11.6354 8.16839 11.5 8.16839C11.3646 8.16839 11.2474 8.23301 11.1484 8.36226C11.0495 8.4915 11 8.64456 11 8.82142C11 8.99828 11.0495 9.15133 11.1484 9.28058C11.2474 9.40983 11.3646 9.47445 11.5 9.47445C11.6354 9.47445 11.7526 9.40983 11.8516 9.28058C11.9505 9.15133 12 8.99828 12 8.82142ZM13 8.82142V13.0661C13 13.1545 12.9753 13.2311 12.9258 13.2957C12.8763 13.3603 12.8177 13.3926 12.75 13.3926H11V15.0252C11 15.2973 10.9271 15.5286 10.7812 15.719C10.6354 15.9095 10.4583 16.0047 10.25 16.0047H2.75C2.54167 16.0047 2.36458 15.9095 2.21875 15.719C2.07292 15.5286 2 15.2973 2 15.0252V13.3926H0.25C0.182292 13.3926 0.123698 13.3603 0.0742188 13.2957C0.0247396 13.2311 0 13.1545 0 13.0661V8.82142C0 8.28403 0.147135 7.82317 0.441406 7.43883C0.735677 7.0545 1.08854 6.86233 1.5 6.86233H2V1.31158C2 1.03948 2.07292 0.808199 2.21875 0.617732C2.36458 0.427265 2.54167 0.332031 2.75 0.332031H8C8.20833 0.332031 8.4375 0.400055 8.6875 0.536103C8.9375 0.672151 9.13542 0.835408 9.28125 1.02588L10.4688 2.57682C10.6146 2.76729 10.7396 3.02578 10.8438 3.35229C10.9479 3.67881 11 3.97811 11 4.25021V6.86233H11.5C11.9115 6.86233 12.2643 7.0545 12.5586 7.43883C12.8529 7.82317 13 8.28403 13 8.82142Z"
+fill="white" />
+</svg>Print</a>
+</div>
+</div>
+<!-- country dropdown End -->
+</div>
+<div class="status-badge top-badge">
+<ul>
+<li><span class="circle_badge square success"></span>Yes</li>
+<li><span class="circle_badge square danger"></span>No</li>
+<li><span class="circle_badge square gray"></span>No Data Available</li>
+</ul>
+</div>
+<!-- details content start -->
+<div class="details-content">
+<!-- <div class=""> -->
+<div class="vertical-tab-area">
+<div class="toggle-tab-button">
+<button type="button"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="9"
+viewBox="0 0 12 9" fill="none">
+<path
+d="M1.1825 1.81459L3.79946 4.19568L1.1825 6.56714C0.983589 6.74738 0.871843 6.99185 0.871843 7.24676C0.871843 7.50167 0.983589 7.74614 1.1825 7.92639C1.3814 8.10663 1.65118 8.20789 1.93248 8.20789C2.21378 8.20789 2.48355 8.10663 2.68246 7.92639L6.06536 4.87049C6.16398 4.7813 6.24222 4.67537 6.2956 4.55875C6.34899 4.44213 6.37646 4.31712 6.37646 4.19086C6.37646 4.06461 6.34899 3.93959 6.2956 3.82297C6.24222 3.70635 6.16398 3.60042 6.06536 3.51124L2.68246 0.455338C2.58397 0.366088 2.46705 0.295291 2.33837 0.24699C2.20968 0.198688 2.07176 0.173828 1.93248 0.173828C1.79319 0.173828 1.65527 0.198688 1.52659 0.24699C1.39791 0.295291 1.28099 0.366088 1.1825 0.455338C1.08401 0.544587 1.00588 0.650542 0.952579 0.767152C0.899278 0.883762 0.871843 1.00874 0.871843 1.13496C0.871843 1.26118 0.899278 1.38616 0.952579 1.50277C1.00588 1.61938 1.08401 1.72534 1.1825 1.81459Z"
+fill="white" fill-opacity="0.8" />
+<path
+d="M6.49939 1.79798L9.11635 4.17908L6.49939 6.55054C6.30048 6.73078 6.18874 6.97525 6.18874 7.23016C6.18874 7.48507 6.30048 7.72954 6.49939 7.90978C6.6983 8.09003 6.96808 8.19129 7.24937 8.19129C7.53067 8.19129 7.80045 8.09003 7.99936 7.90978L11.3823 4.85388C11.4809 4.7647 11.5591 4.65877 11.6125 4.54215C11.6659 4.42553 11.6934 4.30051 11.6934 4.17426C11.6934 4.04801 11.6659 3.92299 11.6125 3.80637C11.5591 3.68975 11.4809 3.58382 11.3823 3.49464L7.99936 0.438736C7.90087 0.349486 7.78394 0.27869 7.65526 0.230388C7.52658 0.182087 7.38866 0.157227 7.24937 0.157227C7.11009 0.157227 6.97217 0.182087 6.84349 0.230388C6.7148 0.27869 6.59788 0.349486 6.49939 0.438736C6.4009 0.527985 6.32278 0.63394 6.26947 0.75055C6.21617 0.86716 6.18874 0.992142 6.18874 1.11836C6.18874 1.24458 6.21617 1.36956 6.26947 1.48617C6.32278 1.60278 6.4009 1.70874 6.49939 1.79798Z"
+fill="white" fill-opacity="0.8" />
+</svg></button>
+<div class="tooltip-main">
+<div class="tooltip-option right">
+<span class="arrow is-triangle is-left"></span>
+<div class="tooltip-inner">
+<h5>Check out our new feature</h5>
+<p>You can display comparison results by selecting two countries from
+the list of countries.</p>
+<a href="#">Got it!</a>
+</div>
+</div>
+</div>
+</div>
 
-                                                </li>
-                                                <ul class="sub-category">
-                                                    <li data-tag="five" id="select_Capacity">
-                                                        <a class="md-text" >Capacity
-                                                            Building</a>
-                                                    </li>
-                                                    <li data-tag="six">
-                                                        <a class="md-text">Development
-                                                            Strategy</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="vertical-tab-content">
-                                <div id="container">
-                                    <div class="list" id="one">
-                                        <div class="data-vertical-label">
-                                            <h3>Indicators</h3>
-                                            <h3>Comparison</h3>
-                                        </div>
-                                        <mat-accordion>
-                                            <ng-container >
-                                                <mat-expansion-panel 
-                                                    hideToggle>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            <!-- {{taxonomy.name}} -->
-                                                        </mat-panel-title>
-                                                        <mat-panel-description>
-                                                            <mat-icon>arrow_drop_down</mat-icon>
-                                                        </mat-panel-description>
-                                                    </mat-expansion-panel-header>
-                                                    <div class="accordion-content">
-                                                        <div class="content-row"
-                                                           >
-                                                            <mat-accordion>
-                                                                <div class="content-inner">
-                                                                    <mat-expansion-panel 
-                                                                        hideToggle>
-                                                                        <mat-expansion-panel-header>
-                                                                            <div class="left-content col-md-7">
-                                                                                <mat-panel-title>
-                                                                                    <!-- {{indicator.name}} -->
-                                                                                </mat-panel-title>
-                                                                            </div>
-                                                                            <div class="right-content col-md-5">
-                                                                                <div class="country-1">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[0]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container >
-                                                                                            <span  class="green"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[1]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container >
-                                                                                            <span  class="blue"></span>
-                                                                                            <span class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <mat-panel-description>
-                                                                                <mat-icon>arrow_drop_down</mat-icon>
-                                                                            </mat-panel-description>
-                                                                        </mat-expansion-panel-header>
-                                                                        <div class="content-row"
-                                                                           >
-                                                                            <div class="query-right-content col-md-12">
-                                                                                <div class="query-name col-md-6">
-                                                                                    <!-- {{question.name}} -->
-                                                                                </div>
-                                                                                <div class="country-1 col-md-3">
-                                                                                    <div class="rating">
-                                                                                        <span
-                                                                                            
-                                                                                            class="green success"></span>
-                                                                                        <span
-                                                                                           
-                                                                                            class="alert-red danger"></span>
-                                                                                        <span
-                                                                                            class="gray disable-status"></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2 col-md-3">
-                                                                                    <div class="rating">
-                                                                                        <span
-                                                                                            class="green success"></span>
-                                                                                        <span
-                                                                                            class="alert-red danger"></span>
-                                                                                        <span
-                                                                                            class="gray disable-status"></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </mat-expansion-panel>
-                                                                </div>
-                                                            </mat-accordion>
-                                                        </div>
-                                                    </div>
-                                                </mat-expansion-panel>
-                                            </ng-container>
-                                        </mat-accordion>
-                                    </div>
-                                    <div class="list hide" id="two">
-                                        <div class="data-vertical-label">
-                                            <h3>Indicators</h3>
-                                            <h3>Comparison</h3>
-                                        </div>
-                                        <mat-accordion>
-                                            <ng-container >
-                                                <mat-expansion-panel 
-                                                    hideToggle>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            <!-- {{taxonomy.name}} -->
-                                                        </mat-panel-title>
-                                                        <mat-panel-description>
-                                                            <mat-icon>arrow_drop_down</mat-icon>
-                                                        </mat-panel-description>
-                                                    </mat-expansion-panel-header>
-                                                    <div class="accordion-content">
-                                                        <div class="content-row"
-                                                           >
-                                                            <mat-accordion>
-                                                                <div class="content-inner">
-                                                                    <mat-expansion-panel 
-                                                                        hideToggle>
-                                                                        <mat-expansion-panel-header>
-                                                                            <div class="left-content col-md-7">
-                                                                                <mat-panel-title>
-                                                                                    <!-- {{indicator.name}} -->
-                                                                                </mat-panel-title>
-                                                                            </div>
-                                                                            <div class="right-content col-md-5">
-                                                                                <div class="country-1">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[0]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container>
-                                                                                            <span class="green"></span>
-                                                                                            <span class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[1]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container>
-                                                                                            <span  class="blue"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <mat-panel-description>
-                                                                                <mat-icon>arrow_drop_down</mat-icon>
-                                                                            </mat-panel-description>
-                                                                        </mat-expansion-panel-header>
-                                                                        <div class="content-row"
-                                                                            >
-                                                                            <div class="query-right-content col-md-12">
-                                                                                <div class="query-name col-md-6">
-                                                                                    <!-- {{question.name}} -->
-                                                                                </div>
-                                                                                <div class="country-1 col-md-3">
-                                                                                    <div class="rating">
-                                                                                        <span
-                                                                                          
-                                                                                            class="green success"></span>
-                                                                                        <span
-                                                                                            class="alert-red danger"></span>
-                                                                                        <span
-                                                                                             class="gray disable-status"></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2 col-md-3">
-                                                                                    <div class="rating">
-                                                                                        <span
-                                                                                          class="green success"></span>
-                                                                                        <span
-                                                                                           class="alert-red danger"></span>
-                                                                                        <span
-                                                                                            class="gray disable-status"></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </mat-expansion-panel>
-                                                                </div>
-                                                            </mat-accordion>
-                                                        </div>
-                                                    </div>
-                                                </mat-expansion-panel>
-                                            </ng-container>
-                                        </mat-accordion>
-                                    </div>
-                                    <div class="list hide" id="three">
-                                        <div class="data-vertical-label">
-                                            <h3>Indicators</h3>
-                                            <h3>Comparison</h3>
-                                        </div>
-                                        <mat-accordion>
-                                            <ng-container >
-                                                <mat-expansion-panel 
-                                                    hideToggle>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            <!-- {{taxonomy.name}} -->
-                                                        </mat-panel-title>
-                                                        <mat-panel-description>
-                                                            <mat-icon>arrow_drop_down</mat-icon>
-                                                        </mat-panel-description>
-                                                    </mat-expansion-panel-header>
-                                                    <div class="accordion-content">
-                                                        <div class="content-row"
-                                                           >
-                                                            <mat-accordion>
-                                                                <div class="content-inner">
-                                                                    <mat-expansion-panel 
-                                                                         hideToggle>
-                                                                        <mat-expansion-panel-header>
-                                                                            <div class="left-content col-md-7">
-                                                                                <mat-panel-title>
-                                                                                    <!-- {{indicator.name}} -->
-                                                                                </mat-panel-title>
-                                                                            </div>
-                                                                            <div class="right-content col-md-5">
-                                                                                <div class="country-1">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[0]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container>
-                                                                                            <span class="green"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[1]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container >
-                                                                                            <span  class="blue"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <mat-panel-description>
-                                                                                <mat-icon>arrow_drop_down</mat-icon>
-                                                                            </mat-panel-description>
-                                                                        </mat-expansion-panel-header>
-                                                                        <div class="content-row">
-                                                                        <div class="query-right-content col-md-12">
-                                                                            <div class="query-name col-md-6">
-                                                                                <!-- {{question.name}} -->
-                                                                            </div>
-                                                                            <div class="country-1 col-md-3">
-                                                                                <div class="rating">
-                                                                                    <span
-                                                                                       
-                                                                                        class="green success"></span>
-                                                                                    <span
-                                                                                        class="alert-red danger"></span>
-                                                                                    <span
-                                                                                        class="gray disable-status"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="country-2 col-md-3">
-                                                                                <div class="rating">
-                                                                                    <span
-                                                                                        class="green success"></span>
-                                                                                    <span
-                                                                                        class="alert-red danger"></span>
-                                                                                    <span
-                                                                                        class="gray disable-status"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    </mat-expansion-panel>
-                                                                </div>
-                                                            </mat-accordion>
-                                                        </div>
-                                                    </div>
-                                                </mat-expansion-panel>
-                                            </ng-container>
-                                        </mat-accordion>
-                                    </div>
-                                    <div class="list hide" id="four">
-                                        <div class="data-vertical-label">
-                                            <h3>Indicators</h3>
-                                            <h3>Comparison</h3>
-                                        </div>
-                                        <mat-accordion>
-                                            <ng-container >
-                                                <mat-expansion-panel 
-                                                    hideToggle>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            <!-- {{taxonomy.name}} -->
-                                                        </mat-panel-title>
-                                                        <mat-panel-description>
-                                                            <mat-icon>arrow_drop_down</mat-icon>
-                                                        </mat-panel-description>
-                                                    </mat-expansion-panel-header>
-                                                    <div class="accordion-content">
-                                                        <div class="content-row"
-                                                            >
-                                                            <mat-accordion>
-                                                                <div class="content-inner">
-                                                                    <mat-expansion-panel 
-                                                                      hideToggle>
-                                                                        <mat-expansion-panel-header>
-                                                                            <div class="left-content col-md-7">
-                                                                                <mat-panel-title>
-                                                                                    <!-- {{indicator.name}} -->
-                                                                                </mat-panel-title>
-                                                                            </div>
-                                                                            <div class="right-content col-md-5">
-                                                                                <div class="country-1">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[0]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container >
-                                                                                            <span  class="green"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[1]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container >
-                                                                                            <span  class="blue"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <mat-panel-description>
-                                                                                <mat-icon>arrow_drop_down</mat-icon>
-                                                                            </mat-panel-description>
-                                                                        </mat-expansion-panel-header>
-                                                                        <div class="content-row"
-                                                                           >
-                                                                            <div class="query-right-content col-md-12">
-                                                                                <div class="query-name col-md-6">
-                                                                                    <!-- {{question.name}} -->
-                                                                                </div>
-                                                                                <div class="country-1 col-md-3">
-                                                                                    <div class="rating">
-                                                                                        <span
-                                                                                            class="green success"></span>
-                                                                                        <span
-                                                                                            class="alert-red danger"></span>
-                                                                                        <span
-                                                                                            class="gray disable-status"></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2 col-md-3">
-                                                                                    <div class="rating">
-                                                                                        <span
-                                                                                            class="green success"></span>
-                                                                                        <span
-                                                                                            class="alert-red danger"></span>
-                                                                                        <span
-                                                                                            class="gray disable-status"></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </mat-expansion-panel>
-                                                                </div>
-                                                            </mat-accordion>
-                                                        </div>
-                                                    </div>
-                                                </mat-expansion-panel>
-                                            </ng-container>
-                                        </mat-accordion>
-                                    </div>
-                                    <div class="list hide" id="five">
-                                        <div class="data-vertical-label">
-                                            <h3>Indicators</h3>
-                                            <h3>Comparison</h3>
-                                        </div>
-                                        <mat-accordion>
-                                            <ng-container >
-                                                <mat-expansion-panel 
-                                                    hideToggle>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            <!-- {{taxonomy.name}} -->
-                                                        </mat-panel-title>
-                                                        <mat-panel-description>
-                                                            <mat-icon>arrow_drop_down</mat-icon>
-                                                        </mat-panel-description>
-                                                    </mat-expansion-panel-header>
-                                                    <div class="accordion-content">
-                                                        <div class="content-row"
-                                                           >
-                                                            <mat-accordion>
-                                                                <div class="content-inner">
-                                                                    <mat-expansion-panel 
-                                                                         hideToggle>
-                                                                        <mat-expansion-panel-header>
-                                                                            <div class="left-content col-md-7">
-                                                                                <mat-panel-title>
-                                                                                    <!-- {{indicator.name}} -->
-                                                                                </mat-panel-title>
-                                                                            </div>
-                                                                            <div class="right-content col-md-5">
-                                                                                <div class="country-1">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[0]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container >
-                                                                                            <span  class="green"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[1]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container>
-                                                                                            <span  class="blue"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <mat-panel-description>
-                                                                                <mat-icon>arrow_drop_down</mat-icon>
-                                                                            </mat-panel-description>
-                                                                        </mat-expansion-panel-header>
-                                                                        <div class="content-row"
-                                                                      >
-                                                                        <div class="query-right-content col-md-12">
-                                                                            <div class="query-name col-md-6">
-                                                                                <!-- {{question.name}} -->
-                                                                            </div>
-                                                                            <div class="country-1 col-md-3">
-                                                                                <div class="rating">
-                                                                                    <span
-                                                                                      
-                                                                                        class="green success"></span>
-                                                                                    <span
-                                                                                        class="alert-red danger"></span>
-                                                                                    <span
-                                                                                          class="gray disable-status"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="country-2 col-md-3">
-                                                                                <div class="rating">
-                                                                                    <span
-                                                                                          class="green success"></span>
-                                                                                    <span
-                                                                                        class="alert-red danger"></span>
-                                                                                    <span
-                                                                                        class="gray disable-status"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    </mat-expansion-panel>
-                                                                </div>
-                                                            </mat-accordion>
-                                                        </div>
-                                                    </div>
-                                                </mat-expansion-panel>
-                                            </ng-container>
-                                        </mat-accordion>
-                                    </div>
-                                    <div class="list hide" id="six">
-                                        <div class="data-vertical-label">
-                                            <h3>Indicators</h3>
-                                            <h3>Comparison</h3>
-                                        </div>
-                                        <mat-accordion>
-                                            <ng-container>
-                                                <mat-expansion-panel 
-                                                    hideToggle>
-                                                    <mat-expansion-panel-header>
-                                                        <mat-panel-title>
-                                                            <!-- {{taxonomy.name}} -->
-                                                        </mat-panel-title>
-                                                        <mat-panel-description>
-                                                            <mat-icon>arrow_drop_down</mat-icon>
-                                                        </mat-panel-description>
-                                                    </mat-expansion-panel-header>
-                                                    <div class="accordion-content">
-                                                        <div class="content-row"
-                                                            >
-                                                            <mat-accordion>
-                                                                <div class="content-inner">
-                                                                    <mat-expansion-panel 
-                                                                         hideToggle>
-                                                                        <mat-expansion-panel-header>
-                                                                            <div class="left-content col-md-7">
-                                                                                <mat-panel-title>
-                                                                                    <!-- {{indicator.name}} -->
-                                                                                </mat-panel-title>
-                                                                            </div>
-                                                                            <div class="right-content col-md-5">
-                                                                                <div class="country-1">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[0]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container>
-                                                                                            <span class="green"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="country-2">
-                                                                                    <Span>
-                                                                                        <!-- {{indicator.countries[1]}} -->
-                                                                                        <mat-icon>arrow_drop_up
-                                                                                        </mat-icon>
-                                                                                    </Span>
-                                                                                    <div class="rating">
-                                                                                        <ng-container >
-                                                                                            <span  class="blue"></span>
-                                                                                            <span  class="gray"></span>
-                                                                                        </ng-container>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <mat-panel-description>
-                                                                                <mat-icon>arrow_drop_down</mat-icon>
-                                                                            </mat-panel-description>
-                                                                        </mat-expansion-panel-header>
-                                                                        <div class="content-row"
-                                                                       >
-                                                                        <div class="query-right-content col-md-12">
-                                                                            <div class="query-name col-md-6">
-                                                                                <!-- {{question.name}} -->
-                                                                            </div>
-                                                                            <div class="country-1 col-md-3">
-                                                                                <div class="rating">
-                                                                                    <span
-                                                                                       
-                                                                                        class="green success"></span>
-                                                                                    <span
-                                                                                        class="alert-red danger"></span>
-                                                                                    <span
-                                                                                        class="gray disable-status"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="country-2 col-md-3">
-                                                                                <div class="rating">
-                                                                                    <span
-                                                                                        class="green success"></span>
-                                                                                    <span
-                                                                                        class="alert-red danger"></span>
-                                                                                    <span
-                                                                                        class="gray disable-status"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    </mat-expansion-panel>
-                                                                </div>
-                                                            </mat-accordion>
-                                                        </div>
-                                                    </div>
-                                                </mat-expansion-panel>
-                                            </ng-container>
-                                        </mat-accordion>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- details content start -->
-                    </div>
+<div class="tab-nodes-area">
+<div class="vertical-tab-tree">
+<ul>
+<div class="main-li" id="present_development">
+<li class="parent-li" data-tag="one" id="present_deve"
+[ngClass]="{ 'active' : isValue == 1 }" (click)="toggle(1)">
+<a class="toggleSubmenu1" (click)="togglePresent(1)">Present
+Development</a>
+</li>
+<ul class="sub-category">
+<li data-tag="two" id="availability">
+<a class="md-text"
+(click)="ultimateSelection(1)">Availability</a>
+</li>
+<li data-tag="three">
+<a class="md-text" (click)="ultimateSelection(2)">Readiness</a>
+</li>
+</ul>
+</div>
+<div class="main-li" id="prospective_development">
+<li class="parent-li" data-tag="four" (click)="toggle(2)"
+[ngClass]="{ 'active' : isValue == 2 }">
+<a class="toggleSubmenu1" (click)="toggleProspective(3)">Prospective
+Development</a>
+
+</li>
+<ul class="sub-category">
+<li data-tag="five" id="select_Capacity">
+<a class="md-text" (click)="ultimateSelection(3)">Capacity
+Building</a>
+</li>
+<li data-tag="six">
+<a class="md-text" (click)="ultimateSelection(4)">Development
+Strategy</a>
+</li>
+</ul>
+</div>
+</ul>
+</div>
+</div>
+</div>
+<div class="vertical-tab-content">
+<div id="container">
+<div class="list" id="one">
+<div class="data-vertical-label">
+<h3>Indicators</h3>
+<h3>Comparison</h3>
+</div>
+<mat-accordion>
+<ng-container *ngFor="let taxonomy_key of objectKeys(viewDataAvalability)">
+<mat-expansion-panel hideToggle>
+<mat-expansion-panel-header>
+<mat-panel-title>
+{{taxonomy_key}}
+</mat-panel-title>
+<mat-panel-description>
+<mat-icon>arrow_drop_down</mat-icon>
+</mat-panel-description>
+</mat-expansion-panel-header>
+<div class="accordion-content">
+<div class="content-row"
+*ngFor="let indicator_key of objectKeys(viewDataAvalability[taxonomy_key])">
+<mat-accordion>
+<div class="content-inner">
+<mat-expansion-panel hideToggle>
+<mat-expansion-panel-header>
+    <div class="left-content col-md-7">
+        <mat-panel-title>
+            {{indicator_key}}
+        </mat-panel-title>
+    </div>
+    <div class="right-content col-md-5"
+        *ngFor="let question of objectKeys(viewDataAvalability[taxonomy_key][indicator_key]); let i = index">
+        <div
+            *ngFor="let country of viewDataAvalability[taxonomy_key][indicator_key][question]">
+            <div class="country-1"
+                *ngIf="i == 0">
+                <Span>
+                    {{country.c_name}}
+                    <mat-icon>arrow_drop_up
+                    </mat-icon>
+                </Span>
+                <div class="rating"
+                    *ngIf="mapCountryData[0].name == country.c_name">
+                    <ng-container
+                        *ngFor="let dash of dash_array;">
+                        <span class="green"
+                            *ngIf="dash <= math(math(country.actual_score/country.indicator_score * 100)/20); else val ">
+                        </span>
+                        <ng-template #val>
+                            <span
+                                class="gray"></span>
+                        </ng-template>
+                    </ng-container>
                 </div>
-                <!-- panel one End -->
-            </div>
-            <div class="col-md-4 col-sm-12 col-xs-12">
-                <div class="back-btn">
-                    <a mat-stroked-button ><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="20" viewBox="0 0 24 20" fill="none">
-                            <path
-                                d="M6 10L5.35982 10.7682L4.43795 10L5.35982 9.23178L6 10ZM11.3598 15.7682L5.35982 10.7682L6.64018 9.23178L12.6402 14.2318L11.3598 15.7682ZM5.35982 9.23178L11.3598 4.23178L12.6402 5.76822L6.64018 10.7682L5.35982 9.23178Z"
-                                fill="#C4C4C4" />
-                            <path
-                                d="M12 10L11.3598 10.7682L10.438 10L11.3598 9.23178L12 10ZM17.3598 15.7682L11.3598 10.7682L12.6402 9.23178L18.6402 14.2318L17.3598 15.7682ZM11.3598 9.23178L17.3598 4.23178L18.6402 5.76822L12.6402 10.7682L11.3598 9.23178Z"
-                                fill="#C4C4C4" />
-                        </svg>&nbsp;&nbsp;&nbsp;Go Back</a>
+
+                <div class="rating"
+                    *ngIf="mapCountryData[1].name == country.c_name">
+                    <ng-container
+                        *ngFor="let dash of dash_array;">
+                        <span class="blue"
+                            *ngIf="dash <= math(math(country.actual_score/country.indicator_score * 100)/20); else val ">
+                        </span>
+                        <ng-template #val>
+                            <span
+                                class="gray"></span>
+                        </ng-template>
+                    </ng-container>
                 </div>
-                <!-- panel one start -->
-                <div class="panel comparative-details">
-                    <div class="panel-content">
-                        <div class="compartive-table-details">
-                            <div class="table-details-heading">
-                                <h5>Information Report</h5>
-                                <div class="status-table">
-                                    <h5>
-                                        <!-- {{ultimate_type}} -->
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="table-com">
-                                <div class="status-badge">
-                                    <ul >
-                                        <li><span class="circle_badge success"></span>
-                                            <!-- {{comparitive_countries[0]}}-->
-                                            </li>
-                                        <li><span class="circle_badge danger"></span>
-                                            <!-- {{comparitive_countries[1]}} -->
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- progress row start -->
-                                <div class="progress-row" >
-                                    <div class="progress-heading"> <span >
-                                        <!-- {{comparative.taxonomy}} -->
-                                    </span></div>
-                                    <div class="progress-bar-lable">
-                                        <!-- {{comparative.country}} -->
-                                    </div>
-                                    <div class="progress-line">
-                                        <div >
-                                            <div class="progress-bar" 
-                                                role="progressbar" style="width: 250px"
-                                                aria-valuenow="comparative.score" aria-valuemin="0" aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                        <Span>
-                                            <!-- {{comparative.percentage}}% -->
-                                        </Span>
-                                    </div>
-                                </div>
-                                <!-- progress row End -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- panel one End -->
-                <!-- panel one start -->
-                <div class="panel comparative-details top-country">
-                    <div class="panel-content">
-                        <div class="compartive-table-details">
-                            <div class="table-details-heading">
-                                <h5>Top Countries</h5>
-                                <div class="status-table">
-                                    <!-- <h5>{{ultimate_field}}</h5> -->
-                                </div>
-                            </div>
-                            <div class="table-com">
-                                <div class="demo-chart" style="height:50vh;width:100%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- panel one End -->
             </div>
         </div>
     </div>
+    <mat-panel-description>
+        <mat-icon>arrow_drop_down</mat-icon>
+    </mat-panel-description>
+</mat-expansion-panel-header>
+<div class="content-row"
+    *ngFor="let question of objectKeys(viewDataAvalability[taxonomy_key][indicator_key])">
+    <div class="query-right-content col-md-12">
+        <div class="query-name col-md-6">
+
+            {{question}}
+        </div>
+        <div
+            *ngFor="let status of viewDataAvalability[taxonomy_key][indicator_key][question]">
+
+            <div class="country-1 col-md-3">
+                <div class="rating">
+                    <span
+                        *ngIf="status.status == 'Yes'"
+                        class="green success"></span>
+                    <span
+                        *ngIf="status.status == 'No'"
+                        class="alert-red danger"></span>
+                    <span
+                        *ngIf="status.status == 'Data not available'"
+                        class="gray disable-status"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</mat-expansion-panel>
+</div>
+</mat-accordion>
+</div>
+</div>
+</mat-expansion-panel>
+</ng-container>
+</mat-accordion>
+</div>
+</div>
+</div>
+</div>
+<!-- details content start -->
+</div>
+</div>
+<!-- panel one End -->
+</div>
+<div class="col-md-4 col-sm-12 col-xs-12">
+<div class="back-btn">
+<a mat-stroked-button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20"
+viewBox="0 0 24 20" fill="none">
+<path
+d="M6 10L5.35982 10.7682L4.43795 10L5.35982 9.23178L6 10ZM11.3598 15.7682L5.35982 10.7682L6.64018 9.23178L12.6402 14.2318L11.3598 15.7682ZM5.35982 9.23178L11.3598 4.23178L12.6402 5.76822L6.64018 10.7682L5.35982 9.23178Z"
+fill="#C4C4C4" />
+<path
+d="M12 10L11.3598 10.7682L10.438 10L11.3598 9.23178L12 10ZM17.3598 15.7682L11.3598 10.7682L12.6402 9.23178L18.6402 14.2318L17.3598 15.7682ZM11.3598 9.23178L17.3598 4.23178L18.6402 5.76822L12.6402 10.7682L11.3598 9.23178Z"
+fill="#C4C4C4" />
+</svg>&nbsp;&nbsp;&nbsp;Go Back</a>
+</div>
+<!-- panel one start -->
+<div class="panel comparative-details">
+<div class="panel-content">
+<div class="compartive-table-details">
+<div class="table-details-heading">
+<h5>Information Report</h5>
+<div class="status-table">
+<h5>
+<!-- {{ultimate_type}} -->
+</h5>
+</div>
+</div>
+<div class="table-com">
+<div class="status-badge">
+<ul *ngIf="mapCountryData.length == 2">
+<li><span class="circle_badge success"></span>
+{{mapCountryData[0].name}}
+</li>
+<li><span class="circle_badge danger"></span>
+{{mapCountryData[1].name}}
+</li>
+</ul>
+</div>
+<!-- progress row start -->
+<div class="progress-row" *ngFor="let data of reportData; let i = index">
+<div class="progress-heading" *ngIf="i % 2 === 0"> <span>
+{{data.taxonomy}}
+</span></div>
+<div class="progress-bar-lable">
+{{data.country}}
+</div>
+<div class="progress-line">
+<div [ngClass]="i % 2 === 0 ? 'progress green' : 'progress blue'">
+<div class="progress-bar" [ngClass]="i % 2 === 0 ? 'bg-success' : 'bg-info'"
+role="progressbar" style="width: {{data.percentage}}%"
+aria-valuenow="comparative.score" aria-valuemin="0" aria-valuemax="100">
+</div>
+</div>
+<Span>{{data.percentage}}%</Span>
+</div>
+</div>
+<!-- progress row End -->
+</div>
+</div>
+</div>
+</div>
+<!-- panel one End -->
+<!-- panel one start -->
+<div class="panel comparative-details top-country">
+<div class="panel-content">
+<div class="compartive-table-details">
+<div class="table-details-heading">
+<h5>Top Countries</h5>
+<div class="status-table">
+<!-- <h5>{{ultimate_field}}</h5> -->
+</div>
+</div>
+<div class="table-com">
+<div echarts id="resultDetailBarChart" class="demo-chart"
+style="height:50vh;width:100%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- panel one End -->
+</div>
+</div>
+</div>
 </div>

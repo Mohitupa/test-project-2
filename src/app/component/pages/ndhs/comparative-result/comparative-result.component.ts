@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -11,14 +11,13 @@ import * as $ from "jquery";
 import { ApiDataService } from 'src/app/services/api-data.service';
 import { LocalDataService } from 'src/app/services/local-data.service';
 import { FormControl } from '@angular/forms';
-import { valueToRelative } from '@amcharts/amcharts4/.internal/core/utils/Utils';
 
 @Component({
   selector: 'app-comparative-result',
   templateUrl: './comparative-result.component.html',
   styleUrls: ['./comparative-result.component.css'],
 })
-export class ComparativeResultComponent {
+export class ComparativeResultComponent implements OnInit {
   data2021: any;
   data2022: any;
   countryData: any;
@@ -68,7 +67,11 @@ export class ComparativeResultComponent {
         }
 
         if (data) {
-          this.mapCountryData = data;
+          if(this.localDataService.mapData2CountryData.length != 2) {
+            this.mapCountryData = data;
+          } else {
+            this.mapCountryData = this.localDataService.mapData2CountryData;
+          }
           this.comparativeResultMap();
           this.comparativeResultNetworkChart();
           this.comparativeResultData();
@@ -76,10 +79,6 @@ export class ComparativeResultComponent {
       })
 
     });
-  }
-
-  ngAfterViewInit() {
-
   }
 
   selectedCountryArray(ev: any) {
@@ -105,6 +104,7 @@ export class ComparativeResultComponent {
     console.log(this.mapCountryData);
 
     if (this.mapCountryData.length == 2) {
+      this.localDataService.mapData2CountryData = this.mapCountryData;
       let data = {
         countries: this.mapCountryData[0].id + ',' + this.mapCountryData[1].id,
         developmentId: '1,2',

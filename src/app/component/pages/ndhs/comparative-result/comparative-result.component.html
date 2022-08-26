@@ -15,7 +15,7 @@
                                     matTooltipPosition="left"
                                     aria-tooltip="Button that displays and hides a tooltip triggered by other buttons">
                                     <mat-label>Search Country</mat-label>
-                                    <mat-select #mySelect [formControl]="toppings" multiple
+                                    <mat-select #mySelect [formControl]="toppings" multiple 
                                         (selectionChange)="selectedCountryArray($event)">
                                    
                                         <mat-option #selectedMapData *ngFor="let country of countryData"

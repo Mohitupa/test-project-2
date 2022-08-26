@@ -19,7 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { AppComponent } from './app.component';
@@ -41,6 +41,8 @@ import { ComparativeResultDetailComponent } from './component/pages/ndhs/compara
 import { ComparativeOverviewComponent } from './component/pages/ndhs/comparative-overview/comparative-overview.component';
 import { PieChartCardComponent } from './component/pages/ndhs/countries/ndhs-countries/countries-data/pie-chart-card/pie-chart-card.component';
 import { DataModalComponent } from './component/pages/ndhs/countries/ndhs-countries/countries-data/data-modal/data-modal.component';
+import { MatRippleModule } from '@angular/material/core';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
     declarations: [
@@ -65,6 +67,10 @@ import { DataModalComponent } from './component/pages/ndhs/countries/ndhs-countr
         DataModalComponent
     ],
     imports: [
+        MatButtonModule,
+        MatFormFieldModule,
+
+        MatRippleModule,
         BrowserModule,
         FormsModule,
         ReactiveFormsModule,
@@ -81,6 +87,7 @@ import { DataModalComponent } from './component/pages/ndhs/countries/ndhs-countr
         MatTooltipModule,
         MatSelectModule,
         MatExpansionModule,
+        MatStepperModule,
         MatProgressSpinnerModule,
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts'),
@@ -91,4 +98,4 @@ import { DataModalComponent } from './component/pages/ndhs/countries/ndhs-countr
     providers: [],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
