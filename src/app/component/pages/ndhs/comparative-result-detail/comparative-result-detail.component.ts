@@ -47,7 +47,6 @@ export class ComparativeResultDetailComponent implements OnInit {
   ulitimate2: any = [];
   reportData: any;
   option: any = [];
-  log = console.log;
 
   constructor(
     private apiDataService: ApiDataService,
@@ -67,7 +66,6 @@ export class ComparativeResultDetailComponent implements OnInit {
         $(this).addClass('activelink');
       });
     });
-    this.mySelections = [74, 228];
     this.apiDataService.getCountriesData().subscribe((data) => {
 
       this.year = this.localDataService.selectedYear;
@@ -106,13 +104,12 @@ export class ComparativeResultDetailComponent implements OnInit {
               this.mapCountryData = data;
             }
           }
+          this.mySelections = [this.mapCountryData[0].id, this.mapCountryData[1].id];
           this.comaprativeResultMain(1)
         })
       })
     });
     this.toppings.setValue(this.mySelections);
-    this.log(this.mySelections)
-    this.log( this.toppings)
   }
 
   hideChanger() {
@@ -145,10 +142,17 @@ export class ComparativeResultDetailComponent implements OnInit {
     this.comaprativeResultMain(v);
   }
 
-  selectedCountryArray(ev: any) {
+  
 
+  selectedCountryArray(ev: any) {
     this.localDataService.governanceTypeSource.subscribe((governanceId) => {
-      this.log(ev['value'])
+
+     let tamp = [];
+      for(let i=0;i<ev['value'].length; i++) {
+        tamp.push(this.countryData.find((x:any) => x.id === ev['value'][i]))
+      }
+      ev['value'] = [];
+      ev['value'] = tamp;
 
       if (ev['value'].length < 3 || ev['value'].length < 2) {
         this.mapCountryData = ev['value'];
@@ -164,11 +168,9 @@ export class ComparativeResultDetailComponent implements OnInit {
       if (this.mapCountryData.length == 2) {
         this.comaprativeResultMain(1)
       }
-      console.log(this.toppings);
       
     });
   }
-
 
   comaprativeResultMain(val: any) {
     this.isLoading = true;
@@ -186,7 +188,6 @@ export class ComparativeResultDetailComponent implements OnInit {
     };
 
     this.apiDataService.getComparativeOverview(data).subscribe((result: any) => {
-      console.log(result);
 
       var v: any = [];
       for (const [key, val] of Object.entries(result)) {
@@ -201,10 +202,11 @@ export class ComparativeResultDetailComponent implements OnInit {
         this.ulitimate2.push(key1);
         this.taxonomy1.push(val1)
       }  
-      // this.log(this.taxonomy)
-      // this.log(this.taxonomy1)
-      // this.log(this.ulitimate1)
-      // this.log(this.ulitimate2)
+
+      // console.log(this.taxonomy)
+      // console.log(this.taxonomy1)
+      // console.log(this.ulitimate1)
+      // console.log(this.ulitimate2)
       // let av:any = [];
       // for (const [key1, val1] of Object.entries(this.taxonomy[1])) {
       //   let y:any = val1
@@ -213,12 +215,12 @@ export class ComparativeResultDetailComponent implements OnInit {
       //     for (const [key4, val4] of Object.entries(t)) {
          
       //         av.push(val4)
-      //         this.log(val4)
+      //         console.log(val4)
             
       //     }
       //   }
       // } 
-      // this.log(av)
+      // console.log(av)
       
      
 

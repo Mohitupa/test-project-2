@@ -32,7 +32,7 @@
                                         (selectionChange)="selectedCountryArray($event)" [(ngModel)]="mySelections">
 
                                         <mat-option #selectedMapData *ngFor="let country of countryData"
-                                            [value]="country">
+                                            [value]="country.id">
                                             {{country.name}}
                                         </mat-option>
                                     </mat-select>
@@ -277,10 +277,10 @@
                                 <div class="status-badge">
                                     <ul *ngIf="mapCountryData.length == 2">
                                         <li><span class="circle_badge success"></span>
-                                            {{mapCountryData[1].name}}
+                                            {{mapCountryData[0].name}}
                                         </li>
                                         <li><span class="circle_badge danger"></span>
-                                            {{mapCountryData[0].name}}
+                                            {{mapCountryData[1].name}}
                                         </li>
                                     </ul>
                                 </div>

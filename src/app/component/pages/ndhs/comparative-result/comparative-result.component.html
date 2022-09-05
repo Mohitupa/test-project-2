@@ -16,10 +16,10 @@
                                     aria-tooltip="Button that displays and hides a tooltip triggered by other buttons">
                                     <mat-label>Search Country</mat-label>
                                     <mat-select #mySelect [formControl]="toppings" multiple
-                                        (selectionChange)="selectedCountryArray($event)">
+                                        (selectionChange)="selectedCountryArray($event)"  [(ngModel)]="mySelections">
 
                                         <mat-option #selectedMapData *ngFor="let country of countryData"
-                                            [value]="country"
+                                            [value]="country.id"
                                             (click)="comparativeResultSelectedMapData(country,selectedMapData)">
                                             {{country.name}}   
                                         </mat-option>

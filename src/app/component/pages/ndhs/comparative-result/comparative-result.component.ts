@@ -35,6 +35,7 @@ export class ComparativeResultComponent implements AfterViewInit {
   development_strategy: any = [];
   country_ids: any;
   persantageResult: any = [];
+  mySelections: any=[];
 
   constructor(
     private apiDataService: ApiDataService,
@@ -75,6 +76,10 @@ export class ComparativeResultComponent implements AfterViewInit {
           } else {
             this.mapCountryData = this.localDataService.mapData2CountryData;
           }
+          console.log(this.mapCountryData);
+          
+          this.mySelections = [this.mapCountryData[0].id, this.mapCountryData[1].id];
+      
           this.comparativeResultMap();
           this.comparativeResultNetworkChart();
           this.comparativeResultData();
@@ -82,9 +87,18 @@ export class ComparativeResultComponent implements AfterViewInit {
       })
 
     });
+    this.toppings.setValue(this.mySelections);
   }
 
   selectedCountryArray(ev: any) {
+
+
+    let tamp = [];
+      for(let i=0;i<ev['value'].length; i++) {
+        tamp.push(this.countryData.find((x:any) => x.id === ev['value'][i]))
+      }
+      ev['value'] = [];
+      ev['value'] = tamp;
 
     if (ev['value'].length < 3 || ev['value'].length < 2) {
       this.mapCountryData = ev['value'];
