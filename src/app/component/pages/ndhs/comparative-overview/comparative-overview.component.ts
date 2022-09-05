@@ -622,12 +622,12 @@ export class ComparativeOverviewComponent implements OnInit {
     chart.appear(1000, 100);
     if (this.barData.length > 0) {
       chart.children.unshift(am5.Label.new(root, {
-        text: this.barData[0].taxonomy_name,
+        html: this.barData[0].taxonomy_name,
         fontSize: 15,
         fontWeight: '500',
         textAlign: 'center',
         x: am5.percent(75),
-        y: -10,
+        y: 15,
         centerX: am5.percent(50),
       }));
     }
@@ -742,10 +742,10 @@ export class ComparativeOverviewComponent implements OnInit {
           top: 48%;
           height: 100%;
       display: inherit;">`+
-      this.rangeB30[0].development_type + `
+      this.taxonomy_result[0].development_name + `
               </label>
           <span style="font-size: 12px;"><b> `+
-      this.rangeB30[0].ultimate_field + `</b><span>
+      this.taxonomy_result[0].ultimate_name + `</b><span>
           <div>
           </div>`;
     title2.align = 'left';
@@ -753,7 +753,7 @@ export class ComparativeOverviewComponent implements OnInit {
     title2.marginBottom = -180;
 
     var title = chart.titles.create();
-    title.text = this.rangeB30[0].taxonomy_name;
+    title.text = this.taxonomy_result[0].taxonomy_name;
     title.marginTop = 0;
     title.marginBottom = 30;
     title.marginLeft = 60;

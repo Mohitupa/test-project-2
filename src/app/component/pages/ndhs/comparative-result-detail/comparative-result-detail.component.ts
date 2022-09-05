@@ -27,7 +27,6 @@ export class ComparativeResultDetailComponent implements OnInit {
   root: any;
   mapCountryData: any = [];
   dash_array: any = [1, 2, 3, 4, 5];
-  math = Math.round;
   development_name: any;
   ultimate_name: any;
   governace_Id: any;
@@ -223,8 +222,6 @@ export class ComparativeResultDetailComponent implements OnInit {
               let indicator_score2 = 0;
               let country_percantag1 = 0;
               let country_percantag2 = 0;
-              let question_status1: any;
-              let question_status2: any;
   
               Object.entries(t).forEach((el) => {
                 country1 = [];
@@ -233,12 +230,10 @@ export class ComparativeResultDetailComponent implements OnInit {
                   taxonomy_id = elmnt.taxonomy_id;
                   country1.push(elmnt.c_name);
                   if (index == 0) {
-                    question_status1 = elmnt.status;
                     actual_score1 += elmnt.actual_score;
                     indicator_score1 = elmnt.indicator_score;
                   } else {
                     actual_score2 += elmnt.actual_score;
-                    question_status2 = elmnt.status;
                     indicator_score2 = elmnt.indicator_score;
                   }
                 });
@@ -293,7 +288,6 @@ export class ComparativeResultDetailComponent implements OnInit {
         this.scoreFinal = indicator_score;
       }
      
-      
       this.informationReport()
     })
   }
