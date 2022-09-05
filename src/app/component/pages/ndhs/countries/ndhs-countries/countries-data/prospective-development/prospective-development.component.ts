@@ -9,7 +9,6 @@ import { LocalDataService } from 'src/app/services/local-data.service';
 })
 export class ProspectiveDevelopmentComponent implements OnInit {
     objectKeys = Object.keys;
-
     governance_id: any;
     viewData: any;
     country: any;
@@ -37,7 +36,7 @@ export class ProspectiveDevelopmentComponent implements OnInit {
                 this.singleCountryData = this.countryData.find((x: { name: any; }) => x.name === this.country);
                 this.governance_id = governanceId;
 
-                this.apiDataService.getViewData(this.governance_id, 2, this.singleCountryData.id, this.singleCountryData.year).subscribe((responseData: any) => {
+                this.apiDataService.getViewData(this.governance_id, 2, this.singleCountryData.id).subscribe((responseData: any) => {
                     this.viewData = responseData;
                     this.getViewInfo();
                 })

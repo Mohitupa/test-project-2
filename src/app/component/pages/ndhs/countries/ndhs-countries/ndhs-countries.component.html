@@ -3,17 +3,17 @@
 </div>
 
 <div class="two-column-layout">
-    <div class="language-sidebar" >
-        <div class="example-sidenav-content" >
+    <div class="language-sidebar">
+        <div class="example-sidenav-content">
             <button type="button" mat-button (click)="drawer.toggle()" disableRipple>
-                <div class="selected-language">
+                <div class="selected-language" *ngIf="singleCountryData">
                     <mat-icon>arrow_left</mat-icon><img src="assets/flags/{{singleCountryData.flag}}" />
                     {{ singleCountryData.name }}
                 </div>
             </button>
         </div>
         <mat-drawer-container class="example-container" autosize>
-            <mat-drawer #drawer class="example-sidenav" mode="side" >
+            <mat-drawer #drawer class="example-sidenav" mode="side">
                 <div class="search-content">
                     <div class="mat-search">
                         <a (click)="drawer.toggle()">
@@ -24,10 +24,10 @@
                         </div>
                     </div>
                     <div class="country-list">
-                        <ul >
+                        <ul>
                             <li *ngFor="let country of countryData " (click)="drawer.close()">
                                 <div class="selected-language" style="cursor: pointer;"
-                                (click)="selectCountry(country)">
+                                    (click)="selectCountry(country)">
                                     <img src="assets/flags/{{country.flag}}" />
                                     {{country.name}}
                                 </div>
@@ -52,8 +52,8 @@
                 </div>
                 <div style="display: flex;flex-wrap:wrap;">
                     <div class="panel-content" *ngFor="let pieData of a;let i = index" style="margin: 10px;">
-                        <pie-chart-card [cart]="'peiChart0'+i" [isLoading]="pie0Loader"  [pieData]="pie0Data[i]"></pie-chart-card>
-                        <!-- {{pie0Data.taxonomy_name}} -->
+                        <pie-chart-card [cart]="'peiChart0'+i" [isLoading]="pie0Loader" [pieData]="pie0Data[i]">
+                        </pie-chart-card>
                     </div>
                 </div>
             </div>
@@ -68,12 +68,13 @@
                 </div>
                 <div style="display: flex;flex-wrap:wrap;">
                     <div class="panel-content" *ngFor="let pieData of a;let i = index" style="margin: 10px;">
-                        <pie-chart-card [cart]="'peiChart1'+i" [isLoading]="pie1Loader" [pieData]="pie1Data[i]"></pie-chart-card>
+                        <pie-chart-card [cart]="'peiChart1'+i" [isLoading]="pie1Loader" [pieData]="pie1Data[i]">
+                        </pie-chart-card>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab-section"  *ngIf="governanceId == 2">
+        <div class="tab-section" *ngIf="governanceId == 2">
             <div class="panel">
                 <div class="panel-heading d-flex">
                     <h2>Present Development</h2>
@@ -83,7 +84,8 @@
                 </div>
                 <div style="display: flex;flex-wrap:wrap;">
                     <div class="panel-content" *ngFor="let pieData of b;let i = index" style="margin: 10px;">
-                        <pie-chart-card [cart]="'peiChart2'+i" [isLoading]="pie2Loader" [pieData]="pie2Data[i]"></pie-chart-card>
+                        <pie-chart-card [cart]="'peiChart2'+i" [isLoading]="pie2Loader" [pieData]="pie2Data[i]">
+                        </pie-chart-card>
                     </div>
                 </div>
             </div>
@@ -98,7 +100,8 @@
                 </div>
                 <div style="display: flex;flex-wrap:wrap;">
                     <div class="panel-content" *ngFor="let pieData of b;let i = index" style="margin: 10px;">
-                        <pie-chart-card [cart]="'peiChart3'+i" [isLoading]="pie3Loader" [pieData]="pie3Data[i]"></pie-chart-card>
+                        <pie-chart-card [cart]="'peiChart3'+i" [isLoading]="pie3Loader" [pieData]="pie3Data[i]">
+                        </pie-chart-card>
                     </div>
                 </div>
             </div>

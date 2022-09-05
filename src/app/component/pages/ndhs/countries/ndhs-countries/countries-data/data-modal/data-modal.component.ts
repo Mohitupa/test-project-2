@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiDataService } from 'src/app/services/api-data.service';
 import { LocalDataService } from 'src/app/services/local-data.service';
 
-
 @Component({
     selector: 'app-data-modal',
     templateUrl: './data-modal.component.html',
@@ -13,9 +12,6 @@ export class DataModalComponent implements OnInit {
     ndhs_details: any = [];
     entries: any;
 
-    // ngOnInit(): void {
-    //     console.log(this.data);        
-    // }
     objectKeys = Object.keys;
     governance_id: any;
     viewData: any;
@@ -42,7 +38,7 @@ export class DataModalComponent implements OnInit {
             this.countryData = this.data2021.concat(this.data2022);
             this.country = this.localDataService.mapSelectedCountry;
             this.singleCountryData = this.countryData.find((x: { name: any; }) => x.name === this.country);
-            this.apiDataService.getDataModelInfo(this.data[0].governance_id, this.data[0].development_id, this.data[0].taxonomy_id, this.singleCountryData.id, this.singleCountryData.year).subscribe((responseData) => {
+            this.apiDataService.getViewData(this.data[0].governance_id, this.data[0].development_id, this.singleCountryData.id).subscribe((responseData) => {
                 this.modelData = [];
                 this.viewData = responseData;
                 this.getViewInfo();
@@ -57,11 +53,6 @@ export class DataModalComponent implements OnInit {
         }
         this.ultimate_name = Object.keys(v);
         this.modelData = v;
-    }
-
-    ngOnDestroy(): void {
-        // this._utilities.showHeaderMenu.next(false);
-        // this._utilities.governanceTypeSource.unsubscribe;
     }
 
 }

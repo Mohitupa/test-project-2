@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiUrl: "https://jsonplaceholder.typicode.com",
   baseUrl: "http://3.95.161.176:4000/",
+  // baseUrl: "http://localhost:3000/",
   default_taxonomy_general: 1,
   default_taxonomy_digital: 6,
   default_development_id: 1,

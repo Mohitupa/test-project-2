@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -17,27 +17,31 @@ import { FormControl } from '@angular/forms';
   templateUrl: './comparative-result.component.html',
   styleUrls: ['./comparative-result.component.css'],
 })
-export class ComparativeResultComponent implements OnInit {
+export class ComparativeResultComponent implements AfterViewInit {
+
+  @ViewChild('mySelect') mySelect: ElementRef | any;
   data2021: any;
   data2022: any;
   countryData: any;
+  isLoading = true;
   toppings: any = new FormControl();
   year: any;
   root: any;
   mapCountryData: any = [];
-
-  @ViewChild('mySelect') mySelect: ElementRef | any;
   comparitive_countries: any = [];
   readiness: any = [];
   availability: any = [];
   capacity_building: any = [];
   development_strategy: any = [];
   country_ids: any;
+  persantageResult: any = [];
 
-  constructor(private router: Router, private apiDataService: ApiDataService, private localDataService: LocalDataService) { }
+  constructor(
+    private apiDataService: ApiDataService,
+    private localDataService: LocalDataService
+  ) { }
 
-  ngOnInit(): void {
-
+  ngAfterViewInit(): void {
     this.apiDataService.getCountriesData().subscribe((data) => {
 
       this.year = this.localDataService.selectedYear;
@@ -53,13 +57,12 @@ export class ComparativeResultComponent implements OnInit {
         this.data2022 = data[2022];
         this.countryData = this.data2021.concat(this.data2022);
       }
+      console.log(this.countryData);
+      
       let default_contry = {
         countries: this.country_ids
       }
-
       this.apiDataService.getdefaultCountry(default_contry).subscribe(data => {
-        console.log(data);
-
         for (let i = 0; i < 2; i++) {
           data[i]['id'] = data[i]['country_id']
           data[i]['name'] = data[i]['country_name']
@@ -67,7 +70,7 @@ export class ComparativeResultComponent implements OnInit {
         }
 
         if (data) {
-          if(this.localDataService.mapData2CountryData.length != 2) {
+          if (this.localDataService.mapData2CountryData.length != 2) {
             this.mapCountryData = data;
           } else {
             this.mapCountryData = this.localDataService.mapData2CountryData;
@@ -89,7 +92,6 @@ export class ComparativeResultComponent implements OnInit {
     } else {
       if (ev['value'].length > 2) {
         ev['value'].splice(0, 1)
-        console.log(ev['value']);
         this.toppings.setValue(ev['value']);
         this.mapCountryData = ev['value'];
       }
@@ -97,11 +99,7 @@ export class ComparativeResultComponent implements OnInit {
     }
   }
 
-  persantageResult: any = [];
-
-
   comparativeResultData() {
-    console.log(this.mapCountryData);
 
     if (this.mapCountryData.length == 2) {
       this.localDataService.mapData2CountryData = this.mapCountryData;
@@ -288,9 +286,6 @@ export class ComparativeResultComponent implements OnInit {
     });
 
     for (var i = 0; i < cities.length; i++) {
-      // if(cities[i].country_name) {
-      //   cities[i]
-      // }
       let city: any = cities[i];
       addCity(city.lng, city.lat, city.name, city.flag);
     }
@@ -302,7 +297,7 @@ export class ComparativeResultComponent implements OnInit {
         flag: "../../assets/flags/" + flag
       });
     }
-
+    this.isLoading = false;
     chart.appear(1000, 100);
   }
 

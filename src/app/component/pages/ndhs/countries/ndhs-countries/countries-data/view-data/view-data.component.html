@@ -4,7 +4,7 @@
 <div class="two-column-layout">
     <div class="container-fluid">
         <div class="row">
-            <div class="print-btn" >
+            <div class="print-btn">
                 <a mat-raised-button><svg xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17"
                         fill="none">
                         <path
@@ -13,14 +13,14 @@
                     </svg>Print</a>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" *ngFor="let ultimate_key of objectKeys(viewData)">
-                <div class="panel" >
-                    <h2 >
+                <div class="panel">
+                    <h2>
                         {{development_type}}
-                    </h2> 
+                    </h2>
                     <div class="table-layout-main" *ngFor="let taxonomy_key of objectKeys(viewData[ultimate_key])">
-                        <ng-container >
+                        <ng-container>
                             <div class="panel-heading">
-                                <div class="data-heading" >
+                                <div class="data-heading">
                                     <h3>
                                         {{taxonomy_key}}
                                     </h3>
@@ -35,7 +35,6 @@
                                 </div>
                                 <div class="data-status">
                                     <h2>
-                                        <!-- {{taxonomy_key}} -->
                                         {{ultimate_key}}
                                     </h2>
                                 </div>
@@ -54,14 +53,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <ng-container *ngFor="let indicators_key of objectKeys(viewData[ultimate_key][taxonomy_key])">
+                                                <ng-container
+                                                    *ngFor="let indicators_key of objectKeys(viewData[ultimate_key][taxonomy_key])">
                                                     <tr class="border-less"
-                                                    *ngFor="let question of viewData[ultimate_key][taxonomy_key][indicators_key];let k = index">
-                                                        <td style="width: 30%;"  ><span *ngIf="k == 0">
-                                                               {{indicators_key}}
+                                                        *ngFor="let question of viewData[ultimate_key][taxonomy_key][indicators_key];let k = index">
+                                                        <td style="width: 30%;"><span *ngIf="k == 0">
+                                                                {{indicators_key}}
                                                             </span></td>
-                                                        <td style="width: 50%;"
-                                                        >
+                                                        <td style="width: 50%;">
                                                             {{question.question_name}}
                                                         </td>
                                                         <td style="width: 20%;">
@@ -70,7 +69,7 @@
                                                                     class="circle_badge success"></span>
                                                                 <span *ngIf="question.ststus == 'No'"
                                                                     class="circle_badge danger"></span>
-                                                                <span  *ngIf="question.ststus == 'Data not available'"
+                                                                <span *ngIf="question.ststus == 'Data not available'"
                                                                     class="circle_badge disable-status"></span>
                                                             </div>
                                                         </td>
@@ -85,6 +84,6 @@
                         </ng-container>
                     </div>
                 </div>
-            </div>            
+            </div>
+        </div>
     </div>
-</div>

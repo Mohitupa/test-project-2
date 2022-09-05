@@ -34,7 +34,7 @@ export class ViewDataComponent implements OnInit {
                 this.singleCountryData = this.countryData.find((x: { name: any; }) => x.name === this.country);
                 this.governance_id = governanceId;
 
-                this.apiDataService.getViewData(this.governance_id, 1, this.singleCountryData.id, this.singleCountryData.year).subscribe((responseData: any) => {
+                this.apiDataService.getViewData(this.governance_id, 1, this.singleCountryData.id).subscribe((responseData: any) => {
                     this.viewInfo = responseData;
                     this.getViewInfo();
                 })

@@ -1,7 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiDataService } from 'src/app/services/api-data.service';
-
-import { Router } from '@angular/router';
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -36,9 +34,12 @@ export class NdhsCountriesComponent implements OnInit {
     countryData: any;
     singleCountryData: any;
     isLoading = true;
-    year:any;
+    year: any;
 
-    constructor(private apiData: ApiDataService, private localDataService: LocalDataService) { }
+    constructor(
+        private apiData: ApiDataService,
+        private localDataService: LocalDataService
+    ) { }
 
     ngOnInit(): void {
 
@@ -55,7 +56,7 @@ export class NdhsCountriesComponent implements OnInit {
                 this.data2022 = data[2022];
                 this.countryData = this.data2021.concat(this.data2022);
             }
-           
+
             this.singleCountryData = this.countryData.find((x: { name: any; }) => x.name === countriesYear);
             this.localDataService.showHeaderMenu.next(true);
 
@@ -64,6 +65,7 @@ export class NdhsCountriesComponent implements OnInit {
                 this.governanceId = governanceId;
 
                 this.apiData.getPieChartDetails(this.governanceId, this.singleCountryData.id, this.singleCountryData.year).subscribe((data: any) => {
+         
                     if (this.governanceId == 1) {
                         this.ndhsPresentDevelopmentHealthIt = data['Present Development'];
                         this.ndhsProspectiveDevelopmentHealthIt = data['Prospective Development'];
@@ -92,8 +94,8 @@ export class NdhsCountriesComponent implements OnInit {
                 if (this.governanceId == 1) {
                     this.ndhsPresentDevelopmentHealthIt = data['Present Development'];
                     this.ndhsProspectiveDevelopmentHealthIt = data['Prospective Development'];
-                    this.presentHealthIt();
                     this.prospectiveHealthIt();
+                    this.presentHealthIt();
                 }
                 if (this.governanceId == 2) {
                     this.ndhsPresentDevelopmentDigital = data['Present Development'];
@@ -106,14 +108,16 @@ export class NdhsCountriesComponent implements OnInit {
         this.isLoading = false;
     }
 
-
     presentHealthIt() {
         this.pie0Loader = true;
         am4core.useTheme(am4themes_animated);
-        for (let i = 0; i < Object.keys(this.ndhsPresentDevelopmentHealthIt[0]).length; i++) {
-            this.pie0Data.push(this.ndhsPresentDevelopmentHealthIt[0][i + 1]);
-            let firstScore = Math.round(this.ndhsPresentDevelopmentHealthIt[0][i + 1][0].score / 2);
-            let secondScore = Math.round(this.ndhsPresentDevelopmentHealthIt[0][i + 1][1].score / 2);
+        for (let i = 0; i < Object.keys(this.ndhsPresentDevelopmentHealthIt).length; i++) {
+
+            var present1: any = Object.values(this.ndhsPresentDevelopmentHealthIt);
+
+            this.pie0Data.push(present1[i]);
+            let firstScore = Math.round(present1[i][0].score / 2);
+            let secondScore = Math.round(present1[i][1].score / 2);
             let totalScore: any = firstScore + secondScore;
             let chart = am4core.create("peiChart0" + i, am4charts.PieChart3D);
 
@@ -177,13 +181,15 @@ export class NdhsCountriesComponent implements OnInit {
     prospectiveHealthIt() {
         this.pie1Loader = true;
         am4core.useTheme(am4themes_animated);
-        for (let i = 0; i < Object.keys(this.ndhsProspectiveDevelopmentHealthIt[0]).length; i++) {
+        for (let i = 0; i < Object.keys(this.ndhsProspectiveDevelopmentHealthIt).length; i++) {
             let chart = am4core.create("peiChart1" + i, am4charts.PieChart3D);
 
-            this.pie1Data.push(this.ndhsProspectiveDevelopmentHealthIt[0][i + 1]);
+            var present2: any = Object.values(this.ndhsProspectiveDevelopmentHealthIt);
 
-            let firstScore = Math.round(this.ndhsProspectiveDevelopmentHealthIt[0][i + 1][0].score / 2);
-            let secondScore = Math.round(this.ndhsProspectiveDevelopmentHealthIt[0][i + 1][1].score / 2);
+            this.pie1Data.push(present2[i]);
+
+            let firstScore = Math.round(present2[i][0].score / 2);
+            let secondScore = Math.round(present2[i][1].score / 2);
             let totalScore: any = firstScore + secondScore;
 
             if (chart.logo) {
@@ -249,9 +255,9 @@ export class NdhsCountriesComponent implements OnInit {
     presentDigital() {
         this.pie2Loader = true;
         am4core.useTheme(am4themes_animated);
-        for (let i = 0; i < Object.keys(this.ndhsPresentDevelopmentDigital[0]).length; i++) {
+        for (let i = 0; i < Object.keys(this.ndhsPresentDevelopmentDigital).length; i++) {
 
-            let y: any = Object.values(this.ndhsPresentDevelopmentDigital[0])
+            let y: any = Object.values(this.ndhsPresentDevelopmentDigital)
 
             this.pie2Data.push(y[i]);
 
@@ -323,9 +329,9 @@ export class NdhsCountriesComponent implements OnInit {
     prospectiveDigital() {
         this.pie3Loader = true;
         am4core.useTheme(am4themes_animated);
-        for (let i = 0; i < Object.keys(this.ndhsProspectiveDevelopmentDigital[0]).length; i++) {
+        for (let i = 0; i < Object.keys(this.ndhsProspectiveDevelopmentDigital).length; i++) {
 
-            let y: any = Object.values(this.ndhsProspectiveDevelopmentDigital[0])
+            let y: any = Object.values(this.ndhsProspectiveDevelopmentDigital)
 
             this.pie3Data.push(y[i]);
             let firstScore = Math.round(y[i][0].score / 2);

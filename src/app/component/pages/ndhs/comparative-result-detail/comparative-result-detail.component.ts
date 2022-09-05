@@ -1,21 +1,23 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as echarts from 'echarts';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { ApiDataService } from 'src/app/services/api-data.service';
 import { LocalDataService } from 'src/app/services/local-data.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { FormBuilder } from '@angular/forms';
-
 @Component({
   selector: 'app-comparative-result-detail',
   templateUrl: './comparative-result-detail.component.html',
   styleUrls: ['./comparative-result-detail.component.css'],
 })
+
 export class ComparativeResultDetailComponent implements OnInit {
 
+  @ViewChild('mySelect') mySelect: ElementRef | any;
+  
+  mySelections: any = []
+  resultDetailBarChart: any;
   objectKeys = Object.keys;
   data2021: any;
   data2022: any;
@@ -26,40 +28,28 @@ export class ComparativeResultDetailComponent implements OnInit {
   mapCountryData: any = [];
   dash_array: any = [1, 2, 3, 4, 5];
   math = Math.round;
-  development_name:any;
-  ultimate_name:any;
-
-  @ViewChild('mySelect') mySelect: ElementRef | any;
-
+  development_name: any;
+  ultimate_name: any;
+  governace_Id: any;
+  isLoading = true;
+  showChanger = true;
   country_ids: any;
   development_type: any = [];
   viewDataAvalability: any = [];
-
-  toggleProspective(ev: any) {
-    $('#prospective_development li:first').addClass('active');
-    $('#prospective_development ul li:first').addClass('activelink');
-    this.comaprativeResultMain(ev)
-  }
-
-  togglePresent(ev: any) {
-    $('#present_development li:first').addClass('active');
-    $('#present_development ul li:first').addClass('activelink');
-    this.comaprativeResultMain(ev)
-  }
-
+  taxonomy_id: any;
+  taxonomy_name: any;
+  ultimateId: any = [];
+  developmentId: any = [];
   isValue: number = 0;
-
-  toggle(num: number) {
-    this.isValue = num;
-  }
-
-  ultimateSelection(v: any) {
-    this.comaprativeResultMain(v);
-  }
+  taxonomy: any = [];
+  taxonomy1: any = [];
+  ulitimate1: any = [];
+  ulitimate2: any = [];
+  reportData: any;
+  option: any = [];
+  log = console.log;
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private router: Router,
     private apiDataService: ApiDataService,
     private localDataService: LocalDataService
   ) { }
@@ -70,15 +60,14 @@ export class ComparativeResultDetailComponent implements OnInit {
       $('.main-li li:first').addClass('active');
       $('.main-li ul li:first').addClass('activelink');
       $('.toggle-tab-button > button').on('click', function () {
-          $('.vertical-tab-area').toggleClass('open');
+        $('.vertical-tab-area').toggleClass('open');
       });
       $('.sub-category li, .parent-li').click(function () {
-          $('.sub-category li, .parent-li').removeClass('activelink');
-          $(this).addClass('activelink');
+        $('.sub-category li, .parent-li').removeClass('activelink');
+        $(this).addClass('activelink');
       });
-  });
-
-
+    });
+    this.mySelections = [74, 228];
     this.apiDataService.getCountriesData().subscribe((data) => {
 
       this.year = this.localDataService.selectedYear;
@@ -97,65 +86,108 @@ export class ComparativeResultDetailComponent implements OnInit {
       let default_contry = {
         countries: this.country_ids
       }
+      this.localDataService.showHeaderMenu.next(true);
+      this.localDataService.governanceTypeSource.subscribe((governanceId) => {
+        this.governace_Id = governanceId;
+        this.ultimateId = environment.default_ultimate_id;
+        this.developmentId = environment.default_development_id;
+       
 
-      this.apiDataService.getdefaultCountry(default_contry).subscribe((data: any) => {
-        for (let i = 0; i < 2; i++) {
-          data[i]['id'] = data[i]['country_id']
-          data[i]['name'] = data[i]['country_name']
-          delete data[i]['country_name'];
-        }
-        if (data) {
-          if (this.localDataService.mapData2CountryData.length == 2) {
-            this.mapCountryData = this.localDataService.mapData2CountryData;
-          } else {
-            this.mapCountryData = data;
+        this.apiDataService.getdefaultCountry(default_contry).subscribe((data: any) => {
+          for (let i = 0; i < 2; i++) {
+            data[i]['id'] = data[i]['country_id']
+            data[i]['name'] = data[i]['country_name']
+            delete data[i]['country_name'];
           }
-        }
+          if (data) {
+            if (this.localDataService.mapData2CountryData.length == 2) {
+              this.mapCountryData = this.localDataService.mapData2CountryData;
+            } else {
+              this.mapCountryData = data;
+            }
+          }
+          this.comaprativeResultMain(1)
+        })
       })
     });
-    this.informationReport()
-    this.topcountriesChart()
-    this.comaprativeResultMain(1)
+    this.toppings.setValue(this.mySelections);
+    this.log(this.mySelections)
+    this.log( this.toppings)
   }
 
+  hideChanger() {
+    this.showChanger = !this.showChanger
+  }
+
+  toggleProspective(ev: any, development_id: number, ultimate_id: number) {
+    $('#prospective_development li:first').addClass('active');
+    $('#prospective_development ul li:first').addClass('activelink');
+    this.developmentId = development_id;
+    this.ultimateId = ultimate_id;
+    this.comaprativeResultMain(ev)
+  }
+
+  togglePresent(ev: any, development_id: number, ultimate_id: number) {
+    $('#present_development li:first').addClass('active');
+    $('#present_development ul li:first').addClass('activelink');
+    this.developmentId = development_id;
+    this.ultimateId = ultimate_id;
+    this.comaprativeResultMain(ev)
+  }
+
+  toggle(num: number) {
+    this.isValue = num;
+  }
+
+  ultimateSelection(v: any, development_id: number, ultimate_id: number) {
+    this.developmentId = development_id;
+    this.ultimateId = ultimate_id;
+    this.comaprativeResultMain(v);
+  }
 
   selectedCountryArray(ev: any) {
 
-    if (ev['value'].length < 3 || ev['value'].length < 2) {
-      this.mapCountryData = ev['value'];
-      this.mySelect.close();
-    } else {
-      if (ev['value'].length > 2) {
-        ev['value'].splice(0, 1)
-        console.log(ev['value']);
-        this.toppings.setValue(ev['value']);
+    this.localDataService.governanceTypeSource.subscribe((governanceId) => {
+      this.log(ev['value'])
+
+      if (ev['value'].length < 3 || ev['value'].length < 2) {
         this.mapCountryData = ev['value'];
+        this.mySelect.close();
+      } else {
+        if (ev['value'].length > 2) {
+          ev['value'].splice(0, 1)
+          this.toppings.setValue(ev['value']);
+          this.mapCountryData = ev['value'];
+        }
+        this.mySelect.close();
       }
-      this.mySelect.close();
-    }
+      if (this.mapCountryData.length == 2) {
+        this.comaprativeResultMain(1)
+      }
+      console.log(this.toppings);
+      
+    });
   }
 
-  comparativeResultSelectedMapData(countryData: any, selected: any) {
-    console.log(this.mapCountryData);
-  }
-
-  taxonomy: any = [];
-  taxonomy1: any = [];
-  ulitimate1 : any = [];
-  ulitimate2 : any = [];
 
   comaprativeResultMain(val: any) {
+    this.isLoading = true;
     this.development_name = [];
     this.ultimate_name = [];
     this.viewDataAvalability = [];
-
-    let data = {
-      countries: "74,228",
-      governances: "1",
-      year: "2021"
+    this.taxonomy = [];
+    this.taxonomy1 = [];
+    this.ulitimate1 = [];
+    this.ulitimate2 = [];
+    let data: any = [];
+    data = {
+      countries: this.mapCountryData[0].id + "," + this.mapCountryData[1].id,
+      governanceId: this.governace_Id.toString()
     };
+
     this.apiDataService.getComparativeOverview(data).subscribe((result: any) => {
       console.log(result);
+
       var v: any = [];
       for (const [key, val] of Object.entries(result)) {
         this.development_type.push(key);
@@ -168,7 +200,27 @@ export class ComparativeResultDetailComponent implements OnInit {
       for (const [key1, val1] of Object.entries(v[1])) {
         this.ulitimate2.push(key1);
         this.taxonomy1.push(val1)
-      }      
+      }  
+      // this.log(this.taxonomy)
+      // this.log(this.taxonomy1)
+      // this.log(this.ulitimate1)
+      // this.log(this.ulitimate2)
+      // let av:any = [];
+      // for (const [key1, val1] of Object.entries(this.taxonomy[1])) {
+      //   let y:any = val1
+      //   for (const [key, val] of Object.entries(y)) {
+      //     let t:any = val;  
+      //     for (const [key4, val4] of Object.entries(t)) {
+         
+      //         av.push(val4)
+      //         this.log(val4)
+            
+      //     }
+      //   }
+      // } 
+      // this.log(av)
+      
+     
 
       if (val == 1) {
         this.development_name = this.development_type[0];
@@ -190,37 +242,50 @@ export class ComparativeResultDetailComponent implements OnInit {
         this.ultimate_name = this.ulitimate2[0];
         this.viewDataAvalability = this.taxonomy1[0];
       }
+
+      this.informationReport()
     })
   }
-  viewInfo(viewInfo: any) {
-    throw new Error('Method not implemented.');
+
+  topCountries(data: any) {
+    this.taxonomy_id = data.taxonomy_id;
+    this.taxonomy_name = data.taxonomy;
+    this.topcountriesChart();
   }
 
-
-
-
-  reportData: any;
   informationReport() {
-    let data = {
-      countries: "74,228",
-      developmentId: 1,
-      governanceId: "1",
-      ultimateId: 2,
-      year: "2021",
+
+    this.reportData = [];
+    let data: any = [];
+    data = {
+      countries: this.mapCountryData[0].id + "," + this.mapCountryData[1].id,
+      developmentId: this.developmentId,
+      ultimateId: this.ultimateId,
+      governanceId: this.governace_Id,
     };
     this.apiDataService.getComparativeInformation(data).subscribe((data: any) => {
       this.reportData = data;
+      this.taxonomy_id = data[0].taxonomy_id;
+      this.taxonomy_name = data[0].taxonomy;
+      this.topcountriesChart()
     })
   }
 
   topcountriesChart() {
+    let taxonomy: any;
+    if (this.taxonomy_id == 0) {
+      taxonomy = (this.governace_Id == 1) ? environment.default_taxonomy_general : environment.default_taxonomy_digital;
+    } else {
+      taxonomy = this.taxonomy_id;
+    }
     let data = {
-      developmentId: 1,
-      governances: "1",
-      taxonomyId: 1,
-      ultimateId: 2,
-      year: "2021"
+      developmentId: this.developmentId,
+      governanceId: this.governace_Id,
+      taxonomyId: taxonomy,
+      ultimateId: this.ultimateId,
+      year: "2021,2022"
     };
+
     this.apiDataService.getTopCountriesData(data).subscribe((result: any) => {
 
       let chartValue: any = [];
@@ -228,13 +293,12 @@ export class ComparativeResultDetailComponent implements OnInit {
         chartValue.push([[result[i].country_name], [result[i].score]]);
       }
 
-      var chartDom: any = document.getElementById('resultDetailBarChart');
-      var myChart = echarts.init(chartDom);
-      var option;
+      var chartDom: any;
+      chartDom = document.getElementById('resultDetailBarChart');
 
-      option = {
+      this.option = {
         title: {
-          text: "taxonomy_name",
+          text: this.taxonomy_name,
           textStyle: {
             fontSize: 12
           }
@@ -247,10 +311,9 @@ export class ComparativeResultDetailComponent implements OnInit {
             fontSize: 11
           }
         },
-        tooltip: {},
         dataset: [
           {
-            dimensions: ['country_name', result[0].ultimate_field],
+            dimensions: ['country_name', "Availability"],
             source: chartValue
           },
           {
@@ -283,9 +346,12 @@ export class ComparativeResultDetailComponent implements OnInit {
         ],
         grid: { containLabel: true },
       };
-      option && myChart.setOption(option);
+      this.isLoading = false;
+      this.resultDetailBarChart = this.option;
     })
   }
-
-
+  ngOnDestroy(): void {
+    this.localDataService.showHeaderMenu.next(false);
+    this.localDataService.governanceTypeSource.unsubscribe;
+  }
 }

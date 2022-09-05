@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import * as am5 from '@amcharts/amcharts5';
@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
     templateUrl: "./ndhs-map.component.html",
     styleUrls: ["./ndhs-map.component.css"],
 })
+
 export class NdhsMapComponent implements AfterViewInit, OnDestroy {
     chart: any;
     pointSeries: any;
@@ -32,13 +33,17 @@ export class NdhsMapComponent implements AfterViewInit, OnDestroy {
     yearChecked2022 = true;
     subscription!: Subscription;
     counter: any = 0;
-    constructor(private router: Router, private apiData: ApiDataService, private localDataService: LocalDataService, private _ngZone: NgZone) { }
-   
+    constructor(
+        private router: Router,
+        private apiData: ApiDataService,
+        private localDataService: LocalDataService
+    ) { }
+
     ngAfterViewInit(): void {
         this.subscription = this.apiData.getCountriesData().subscribe((data) => {
             this.data2021 = data[2021];
             this.data2022 = data[2022];
-            
+
             this.root = am5.Root.new('ndhsMap');
             this.root._logo.dispose();
             this.root.setThemes([am5themes_Animated.new(this.root)]);
@@ -53,7 +58,6 @@ export class NdhsMapComponent implements AfterViewInit, OnDestroy {
                 })
             );
 
-            // Create polygon series
             let polygonSeries = this.chart.series.push(
                 am5map.MapPolygonSeries.new(this.root, {
                     geoJSON: am5geodata_worldLow,
@@ -168,7 +172,7 @@ export class NdhsMapComponent implements AfterViewInit, OnDestroy {
 
         if (this.year.includes('2022') && this.year.includes('2021')) {
             this.localDataService.selectedYear = this.year;
-            
+
             for (var i = 0; i < this.data2021.length; i++) {
                 this.data2021[i].circleTemplate = { fill: am5.color(0x7589ff) };
                 this.data2022[i].circleTemplate = { fill: am5.color(0xFF0000) };
@@ -211,20 +215,19 @@ export class NdhsMapComponent implements AfterViewInit, OnDestroy {
                 });
 
                 this.container.children.push(this.circle);
+                console.log(this.circle);
+
 
                 this.circle.states.create('hover', {
                     radius: 4,
-                    fill: am5.color(0xff0000),
                     scale: 2,
                     strokeWidth: 3,
                     strokeOpacity: 5,
                     stroke: am5.color(0xff7b7b),
                 });
 
-
                 this.circle.events.on('click', (ev: any) => {
                     this.toDiffrentPage(ev.target.dataItem.dataContext.title);
-
                 });
 
                 return (this.bullet = am5.Bullet.new(this.root, {
@@ -258,10 +261,8 @@ export class NdhsMapComponent implements AfterViewInit, OnDestroy {
                     stroke: am5.color(0x8fb8ff),
                 });
 
-
                 this.circle.events.on('click', (ev: any) => {
                     this.toDiffrentPage(ev.target.dataItem.dataContext.title);
-
                 });
 
                 return (this.bullet = am5.Bullet.new(this.root, {
@@ -291,7 +292,6 @@ export class NdhsMapComponent implements AfterViewInit, OnDestroy {
                     strokeOpacity: 5,
                     stroke: am5.color(0xff7b7b),
                 });
-
 
                 this.circle.events.on('click', (ev: any) => {
                     this.toDiffrentPage(ev.target.dataItem.dataContext.title);
