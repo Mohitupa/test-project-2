@@ -15,7 +15,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ComparativeResultDetailComponent implements OnInit {
 
   @ViewChild('mySelect') mySelect: ElementRef | any;
-  
+
   mySelections: any = []
   resultDetailBarChart: any;
   objectKeys = Object.keys;
@@ -89,7 +89,7 @@ export class ComparativeResultDetailComponent implements OnInit {
         this.governace_Id = governanceId;
         this.ultimateId = environment.default_ultimate_id;
         this.developmentId = environment.default_development_id;
-       
+
 
         this.apiDataService.getdefaultCountry(default_contry).subscribe((data: any) => {
           for (let i = 0; i < 2; i++) {
@@ -142,14 +142,14 @@ export class ComparativeResultDetailComponent implements OnInit {
     this.comaprativeResultMain(v);
   }
 
-  
+
 
   selectedCountryArray(ev: any) {
     this.localDataService.governanceTypeSource.subscribe((governanceId) => {
 
-     let tamp = [];
-      for(let i=0;i<ev['value'].length; i++) {
-        tamp.push(this.countryData.find((x:any) => x.id === ev['value'][i]))
+      let tamp = [];
+      for (let i = 0; i < ev['value'].length; i++) {
+        tamp.push(this.countryData.find((x: any) => x.id === ev['value'][i]))
       }
       ev['value'] = [];
       ev['value'] = tamp;
@@ -168,11 +168,13 @@ export class ComparativeResultDetailComponent implements OnInit {
       if (this.mapCountryData.length == 2) {
         this.comaprativeResultMain(1)
       }
-      
+
     });
   }
 
+  scoreFinal:any = [];
   comaprativeResultMain(val: any) {
+    this.scoreFinal =[]
     this.isLoading = true;
     this.development_name = [];
     this.ultimate_name = [];
@@ -182,6 +184,10 @@ export class ComparativeResultDetailComponent implements OnInit {
     this.ulitimate1 = [];
     this.ulitimate2 = [];
     let data: any = [];
+
+    let taxonomy_id: any;
+    let country1: any[] = [];
+    let indicator_score: any = [];
     data = {
       countries: this.mapCountryData[0].id + "," + this.mapCountryData[1].id,
       governanceId: this.governace_Id.toString()
@@ -201,50 +207,92 @@ export class ComparativeResultDetailComponent implements OnInit {
       for (const [key1, val1] of Object.entries(v[1])) {
         this.ulitimate2.push(key1);
         this.taxonomy1.push(val1)
-      }  
+      }
 
-      // console.log(this.taxonomy)
-      // console.log(this.taxonomy1)
-      // console.log(this.ulitimate1)
-      // console.log(this.ulitimate2)
-      // let av:any = [];
-      // for (const [key1, val1] of Object.entries(this.taxonomy[1])) {
-      //   let y:any = val1
-      //   for (const [key, val] of Object.entries(y)) {
-      //     let t:any = val;  
-      //     for (const [key4, val4] of Object.entries(t)) {
-         
-      //         av.push(val4)
-      //         console.log(val4)
-            
-      //     }
-      //   }
-      // } 
-      // console.log(av)
+      function myScore(taxonomy:any) {
+
+        indicator_score = [];
+        let av: any = [];
+        for (const [key1, val1] of Object.entries(taxonomy)) {
+          let y: any = val1
+          for (const [key, val] of Object.entries(y)) {
+            let t: any = val;
+            for (const [key4, val4] of Object.entries(t)) {
+              let actual_score1 = 0;
+              let actual_score2 = 0;
+              let indicator_score1 = 0;
+              let indicator_score2 = 0;
+              let country_percantag1 = 0;
+              let country_percantag2 = 0;
+              let question_status1: any;
+              let question_status2: any;
+  
+              Object.entries(t).forEach((el) => {
+                country1 = [];
+                var e: any = el[1];
+                e.forEach((elmnt: any, index: any) => {
+                  taxonomy_id = elmnt.taxonomy_id;
+                  country1.push(elmnt.c_name);
+                  if (index == 0) {
+                    question_status1 = elmnt.status;
+                    actual_score1 += elmnt.actual_score;
+                    indicator_score1 = elmnt.indicator_score;
+                  } else {
+                    actual_score2 += elmnt.actual_score;
+                    question_status2 = elmnt.status;
+                    indicator_score2 = elmnt.indicator_score;
+                  }
+                });
+              })
+              country_percantag1 = Math.round(Math.round((actual_score1 / indicator_score1) * 100) / 20);
+              country_percantag2 = Math.round(Math.round((actual_score2 / indicator_score2) * 100) / 20);
+  
+              let score = {
+                country_1: country1[0],
+                country_2: country1[1],
+                indicator_score1: indicator_score1,
+                actual_score1: actual_score1,
+                indicator_score2: indicator_score2,
+                actual_score2: actual_score2,
+                country_percantag1: country_percantag1,
+                country_percantag2: country_percantag2,
+                [key4]:val4,
+                question:key4,
+              }
+              indicator_score.push(score);              
+            }
+          }
+        }
+      }
       
-     
-
       if (val == 1) {
         this.development_name = this.development_type[0];
         this.ultimate_name = this.ulitimate1[1];
         this.viewDataAvalability = this.taxonomy[1];
+        myScore(this.taxonomy[1]);
+        this.scoreFinal = indicator_score;
       }
       if (val == 2) {
         this.development_name = this.development_type[0];
         this.ultimate_name = this.ulitimate1[0];
         this.viewDataAvalability = this.taxonomy[0];
+        myScore(this.taxonomy[0]);
+        this.scoreFinal = indicator_score;
       }
       if (val == 3) {
         this.development_name = this.development_type[1];
         this.ultimate_name = this.ulitimate2[1];
         this.viewDataAvalability = this.taxonomy1[1];
+        myScore(this.taxonomy1[1]);
+        this.scoreFinal = indicator_score;
       }
       if (val == 4) {
         this.development_name = this.development_type[1];
         this.ultimate_name = this.ulitimate2[0];
         this.viewDataAvalability = this.taxonomy1[0];
+        myScore(this.taxonomy1[0]);
+        this.scoreFinal = indicator_score;
       }
-
       this.informationReport()
     })
   }

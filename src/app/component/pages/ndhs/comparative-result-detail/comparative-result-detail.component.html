@@ -95,11 +95,11 @@
                                                 <ul class="sub-category">
                                                     <li data-tag="two" id="availability">
                                                         <a class="md-text"
-                                                            (click)="ultimateSelection(1,1,2)">Availability</a>
+                                                            (click)="ultimateSelection(1,1,2)">Readiness</a>
                                                     </li>
                                                     <li data-tag="three">
                                                         <a class="md-text"
-                                                            (click)="ultimateSelection(2,1,1)">Readiness</a>
+                                                            (click)="ultimateSelection(2,1,1)">Availability</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -113,13 +113,13 @@
                                                 </li>
                                                 <ul class="sub-category">
                                                     <li data-tag="five" id="select_Capacity">
-                                                        <a class="md-text" (click)="ultimateSelection(3,2,4)">Capacity
-                                                            Building</a>
+                                                        <a class="md-text" (click)="ultimateSelection(3,2,4)">Development
+                                                            Strategy</a>
                                                     </li>
                                                     <li data-tag="six">
                                                         <a class="md-text"
-                                                            (click)="ultimateSelection(4,2,3)">Development
-                                                            Strategy</a>
+                                                            (click)="ultimateSelection(4,2,3)">Capacity
+                                                            Building</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -160,24 +160,24 @@
                                                                                     {{indicator_key}}
                                                                                 </mat-panel-title>
                                                                             </div>
-                                                                            <div class="right-content col-md-5"
+                                                                            <div class="right-content col-md-5" 
                                                                                 *ngFor="let question of objectKeys(viewDataAvalability[taxonomy_key][indicator_key]); let i = index">
 
                                                                                 <div
-                                                                                    *ngFor="let country of viewDataAvalability[taxonomy_key][indicator_key][question]">
+                                                                                    *ngFor="let country of scoreFinal">
                                                                                     <div class="country-1"
                                                                                         *ngIf="mapCountryData.length == 2">
-                                                                                        <Span>
-                                                                                            {{country.c_name}}
+                                                                                        <Span *ngIf="question == country.question" >
+                                                                                            {{country.country_1}}
                                                                                             <mat-icon>arrow_drop_up
                                                                                             </mat-icon>
                                                                                         </Span>
                                                                                         <div class="rating"
-                                                                                            *ngIf="mapCountryData[0].name == country.c_name">
+                                                                                            *ngIf="question == country.question">
                                                                                             <ng-container
                                                                                                 *ngFor="let dash of dash_array;">
                                                                                                 <span class="green"
-                                                                                                    *ngIf="dash <= math(math(country.actual_score/country.indicator_score * 100)/20); else val">
+                                                                                                    *ngIf="dash <= country.country_percantag1; else val">
                                                                                                 </span>
                                                                                                 <ng-template #val>
                                                                                                     <span
@@ -185,13 +185,17 @@
                                                                                                 </ng-template>
                                                                                             </ng-container>
                                                                                         </div>
-
-                                                                                        <div class="rating"
-                                                                                            *ngIf="mapCountryData[1].name == country.c_name">
+                                                                                        <Span *ngIf="question == country.question">
+                                                                                            {{country.country_2}}
+                                                                                            <mat-icon>arrow_drop_up
+                                                                                            </mat-icon>
+                                                                                        </Span>
+                                                                                        <div class="rating" style="padding-right: 160px;"
+                                                                                            *ngIf="question == country.question">
                                                                                             <ng-container
                                                                                                 *ngFor="let dash of dash_array;">
                                                                                                 <span class="blue"
-                                                                                                    *ngIf="dash <= math(math(country.actual_score/country.indicator_score * 100)/20); else val ">
+                                                                                                    *ngIf="dash <= country.country_percantag2; else val ">
                                                                                                 </span>
                                                                                                 <ng-template #val>
                                                                                                     <span

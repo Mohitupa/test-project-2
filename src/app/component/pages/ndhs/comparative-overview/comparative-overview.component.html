@@ -120,8 +120,7 @@
                                                                                 </mat-panel-title>
                                                                             </div>
                                                                             <div class="right-content col-md-5"
-                                                                                style="display: flex;"
-                                                                                *ngFor="let main of taxonomy_result">
+                                                                                style="display: flex;">
                                                                                 <div class="country-1">
                                                                                     <Span>
                                                                                         <mat-icon>arrow_drop_up
@@ -131,7 +130,7 @@
                                                                                         <ng-container
                                                                                             *ngFor="let dash of dash_array;">
                                                                                             <span class="green"
-                                                                                                *ngIf="dash <= math(math(main.actual_score/main.indicator_score * 100)/20); else val ">
+                                                                                                *ngIf="dash <= score1[j]; else val ">
                                                                                             </span>
                                                                                             <ng-template #val>
                                                                                                 <span
@@ -142,7 +141,6 @@
                                                                                 </div>
                                                                                 <div class="country-2">
                                                                                     <Span>
-                                                                                        <!-- {{indicator.countries[1]}} -->
                                                                                         <mat-icon>arrow_drop_up
                                                                                         </mat-icon>
                                                                                     </Span>
@@ -150,7 +148,7 @@
                                                                                         <ng-container
                                                                                             *ngFor="let dash of dash_array;">
                                                                                             <span class="blue"
-                                                                                                *ngIf="dash <= math(math(main.actual_score/main.indicator_score * 100)/20); else val ">
+                                                                                                *ngIf="dash <=score2[j]; else val ">
                                                                                             </span>
                                                                                             <ng-template #val>
                                                                                                 <span

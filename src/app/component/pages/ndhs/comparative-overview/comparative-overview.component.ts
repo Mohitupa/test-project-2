@@ -224,9 +224,12 @@ export class ComparativeOverviewComponent implements OnInit {
     });
   }
 
+  score1: any = [];
+  score2: any = [];
 
   taxonomyTableDetails() {
-
+    this.score1 = [];
+    this.score2 = [];
     let data = {
       countries: this.mapCountryData[0].id + "," + this.mapCountryData[1].id,
       developmentId: this.developmentId,
@@ -237,12 +240,52 @@ export class ComparativeOverviewComponent implements OnInit {
 
     this.apiDataService.getTaxonomyTabledetails(data).subscribe((result: any) => {
 
+      let mk: any = []
+      let pl: any = [];
+      let yu: any = [];
+      let mk2: any = []
+
       this.taxonomy_result = result;
       const indicator = [...new Set(result.map((item: any) => item.indicator_name))];
       this.indicator_val = indicator;
-      console.log(indicator);
 
+      const ques = [...new Set(result.map((item: any) => item.question))];
       this.question_val = unique(result, ['indicator_name', 'question']);
+
+      for (let u = 0; u < ques.length; u++) {
+        let filteredArr = result.filter((item: any) => item.question === ques[u]);
+        mk.push(filteredArr)
+      }
+
+      for (let u = 0; u < indicator.length; u++) {
+        let filteredArr = mk.filter((item: any) => item[0].indicator_name === indicator[u]);
+        mk2.push(filteredArr)
+      }
+
+      for (let u = 0; u < mk2.length; u++) {
+        yu = [];
+        for (let l = 0; l < mk2[u].length; l++) {
+          let country1: any = mk2[u][l][0].c_name;
+          let country2: any = mk2[u][l][1].c_name;
+          yu.push([{ [country1]: Math.round(mk2[u][l][0].actual_score / mk2[u][l][0].indicator_score * 100) },
+          { [country2]: Math.round(mk2[u][l][1].actual_score / mk2[u][l][1].indicator_score * 100) }])
+        }
+        pl.push(yu);
+      }
+
+      for (let u = 0; u < pl.length; u++) {
+        var total = 0;
+        var total1 = 0;
+
+        for (let y = 0; y < pl[u].length; y++) {
+          let vr: any = +Object.values(pl[u][y][0])
+          total += vr;
+          let vr2: any = +Object.values(pl[u][y][1])
+          total1 += vr2;
+        }
+        this.score1.push(Math.round(total / 20));
+        this.score2.push(Math.round(total1 / 20));
+      }
 
       function unique(arr: any[], keyProps: any[]) {
         const kvArray: any = arr.map((entry: any) => {
