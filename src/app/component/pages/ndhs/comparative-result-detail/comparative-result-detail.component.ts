@@ -210,7 +210,6 @@ export class ComparativeResultDetailComponent implements OnInit {
       }
 
       function myScore(taxonomy:any) {
-
         indicator_score = [];
         let av: any = [];
         for (const [key1, val1] of Object.entries(taxonomy)) {
@@ -267,32 +266,34 @@ export class ComparativeResultDetailComponent implements OnInit {
       
       if (val == 1) {
         this.development_name = this.development_type[0];
-        this.ultimate_name = this.ulitimate1[1];
-        this.viewDataAvalability = this.taxonomy[1];
-        myScore(this.taxonomy[1]);
-        this.scoreFinal = indicator_score;
-      }
-      if (val == 2) {
-        this.development_name = this.development_type[0];
         this.ultimate_name = this.ulitimate1[0];
         this.viewDataAvalability = this.taxonomy[0];
         myScore(this.taxonomy[0]);
         this.scoreFinal = indicator_score;
       }
+      if (val == 2) {
+        this.ultimate_name = this.ulitimate1[1];
+        this.viewDataAvalability = this.taxonomy[1];
+        this.development_name = this.development_type[0];
+        myScore(this.taxonomy[1]);
+        this.scoreFinal = indicator_score;
+      }
       if (val == 3) {
+        this.development_name = this.development_type[1];
+        this.ultimate_name = this.ulitimate2[0];
+        this.viewDataAvalability = this.taxonomy1[0];
+        myScore(this.taxonomy1[0]);
+        this.scoreFinal = indicator_score; 
+      }
+      if (val == 4) {
         this.development_name = this.development_type[1];
         this.ultimate_name = this.ulitimate2[1];
         this.viewDataAvalability = this.taxonomy1[1];
         myScore(this.taxonomy1[1]);
         this.scoreFinal = indicator_score;
       }
-      if (val == 4) {
-        this.development_name = this.development_type[1];
-        this.ultimate_name = this.ulitimate2[0];
-        this.viewDataAvalability = this.taxonomy1[0];
-        myScore(this.taxonomy1[0]);
-        this.scoreFinal = indicator_score;
-      }
+     
+      
       this.informationReport()
     })
   }
