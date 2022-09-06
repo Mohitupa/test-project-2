@@ -65,8 +65,8 @@ export class ComparativeResultDetailComponent implements OnInit {
         $(this).addClass('activelink');
       });
     });
-    this.apiDataService.getCountriesData().subscribe((data) => {
 
+    this.apiDataService.getCountriesData().subscribe((data) => {
       this.year = this.localDataService.selectedYear;
       if (this.year[0] == '2021' && this.year.length == 1) {
         this.country_ids = environment.default_country_2021;
@@ -89,7 +89,6 @@ export class ComparativeResultDetailComponent implements OnInit {
         this.ultimateId = environment.default_ultimate_id;
         this.developmentId = environment.default_development_id;
 
-
         this.apiDataService.getdefaultCountry(default_contry).subscribe((data: any) => {
           for (let i = 0; i < 2; i++) {
             data[i]['id'] = data[i]['country_id']
@@ -98,11 +97,23 @@ export class ComparativeResultDetailComponent implements OnInit {
           }
           if (data) {
             if (this.localDataService.mapData2CountryData.length == 2) {
-              this.mapCountryData = this.localDataService.mapData2CountryData;
+              const myArrayFiltered = this.countryData.filter((el: any) => {
+                return this.localDataService.mapData2CountryData.some((f: any) => {
+                  return f.id === el.id && f.name === el.name;
+                });
+              });
+              console.log(myArrayFiltered);
+              if (myArrayFiltered.length != 0) {
+                this.mapCountryData = this.localDataService.mapData2CountryData;
+              } else {
+                this.mapCountryData = data;
+              }
             } else {
               this.mapCountryData = data;
             }
           }
+
+
           this.mySelections = [this.mapCountryData[0].id, this.mapCountryData[1].id];
           this.comaprativeResultMain(1)
         })
@@ -165,15 +176,17 @@ export class ComparativeResultDetailComponent implements OnInit {
         this.mySelect.close();
       }
       if (this.mapCountryData.length == 2) {
+
+        this.localDataService.mapData2CountryData = this.mapCountryData;
         this.comaprativeResultMain(1)
       }
 
     });
   }
 
-  scoreFinal:any = [];
+  scoreFinal: any = [];
   comaprativeResultMain(val: any) {
-    this.scoreFinal =[]
+    this.scoreFinal = []
     this.isLoading = true;
     this.development_name = [];
     this.ultimate_name = [];
@@ -208,7 +221,7 @@ export class ComparativeResultDetailComponent implements OnInit {
         this.taxonomy1.push(val1)
       }
 
-      function myScore(taxonomy:any) {
+      function myScore(taxonomy: any) {
         indicator_score = [];
         let av: any = [];
         for (const [key1, val1] of Object.entries(taxonomy)) {
@@ -222,7 +235,7 @@ export class ComparativeResultDetailComponent implements OnInit {
               let indicator_score2 = 0;
               let country_percantag1 = 0;
               let country_percantag2 = 0;
-  
+
               Object.entries(t).forEach((el) => {
                 country1 = [];
                 var e: any = el[1];
@@ -240,7 +253,7 @@ export class ComparativeResultDetailComponent implements OnInit {
               })
               country_percantag1 = Math.round(Math.round((actual_score1 / indicator_score1) * 100) / 20);
               country_percantag2 = Math.round(Math.round((actual_score2 / indicator_score2) * 100) / 20);
-  
+
               let score = {
                 country_1: country1[0],
                 country_2: country1[1],
@@ -250,15 +263,15 @@ export class ComparativeResultDetailComponent implements OnInit {
                 actual_score2: actual_score2,
                 country_percantag1: country_percantag1,
                 country_percantag2: country_percantag2,
-                [key4]:val4,
-                question:key4,
+                [key4]: val4,
+                question: key4,
               }
-              indicator_score.push(score);              
+              indicator_score.push(score);
             }
           }
         }
       }
-      
+
       if (val == 1) {
         this.development_name = this.development_type[0];
         this.ultimate_name = this.ulitimate1[0];
@@ -278,7 +291,7 @@ export class ComparativeResultDetailComponent implements OnInit {
         this.ultimate_name = this.ulitimate2[0];
         this.viewDataAvalability = this.taxonomy1[0];
         myScore(this.taxonomy1[0]);
-        this.scoreFinal = indicator_score; 
+        this.scoreFinal = indicator_score;
       }
       if (val == 4) {
         this.development_name = this.development_type[1];
@@ -287,7 +300,7 @@ export class ComparativeResultDetailComponent implements OnInit {
         myScore(this.taxonomy1[1]);
         this.scoreFinal = indicator_score;
       }
-     
+
       this.informationReport()
     })
   }

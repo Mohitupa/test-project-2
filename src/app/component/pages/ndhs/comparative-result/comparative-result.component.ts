@@ -35,7 +35,7 @@ export class ComparativeResultComponent implements AfterViewInit {
   development_strategy: any = [];
   country_ids: any;
   persantageResult: any = [];
-  mySelections: any=[];
+  mySelections: any = [];
 
   constructor(
     private apiDataService: ApiDataService,
@@ -59,7 +59,7 @@ export class ComparativeResultComponent implements AfterViewInit {
         this.countryData = this.data2021.concat(this.data2022);
       }
       console.log(this.countryData);
-      
+
       let default_contry = {
         countries: this.country_ids
       }
@@ -71,15 +71,23 @@ export class ComparativeResultComponent implements AfterViewInit {
         }
 
         if (data) {
-          if (this.localDataService.mapData2CountryData.length != 2) {
-            this.mapCountryData = data;
+          if (this.localDataService.mapData2CountryData.length == 2) {
+            const myArrayFiltered = this.countryData.filter((el: any) => {
+              return this.localDataService.mapData2CountryData.some((f: any) => {
+                return f.id === el.id && f.name === el.name;
+              });
+            });
+            console.log(myArrayFiltered);
+            if (myArrayFiltered.length != 0) {
+              this.mapCountryData = this.localDataService.mapData2CountryData;
+            } else {
+              this.mapCountryData = data;
+            }
           } else {
-            this.mapCountryData = this.localDataService.mapData2CountryData;
+            this.mapCountryData = data;
           }
-          console.log(this.mapCountryData);
-          
           this.mySelections = [this.mapCountryData[0].id, this.mapCountryData[1].id];
-      
+
           this.comparativeResultMap();
           this.comparativeResultNetworkChart();
           this.comparativeResultData();
@@ -94,11 +102,11 @@ export class ComparativeResultComponent implements AfterViewInit {
 
 
     let tamp = [];
-      for(let i=0;i<ev['value'].length; i++) {
-        tamp.push(this.countryData.find((x:any) => x.id === ev['value'][i]))
-      }
-      ev['value'] = [];
-      ev['value'] = tamp;
+    for (let i = 0; i < ev['value'].length; i++) {
+      tamp.push(this.countryData.find((x: any) => x.id === ev['value'][i]))
+    }
+    ev['value'] = [];
+    ev['value'] = tamp;
 
     if (ev['value'].length < 3 || ev['value'].length < 2) {
       this.mapCountryData = ev['value'];
