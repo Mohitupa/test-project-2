@@ -58,7 +58,6 @@ export class ComparativeResultComponent implements AfterViewInit {
         this.data2022 = data[2022];
         this.countryData = this.data2021.concat(this.data2022);
       }
-      console.log(this.countryData);
 
       let default_contry = {
         countries: this.country_ids
@@ -77,7 +76,6 @@ export class ComparativeResultComponent implements AfterViewInit {
                 return f.id === el.id && f.name === el.name;
               });
             });
-            console.log(myArrayFiltered);
             if (myArrayFiltered.length != 0) {
               this.mapCountryData = this.localDataService.mapData2CountryData;
             } else {

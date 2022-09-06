@@ -46,11 +46,18 @@ export class NdhsCountriesComponent implements OnInit {
         this.apiData.getCountriesData().subscribe((data) => {
             this.year = this.localDataService.selectedYear;
             let countriesYear = this.localDataService.mapSelectedCountry;
+            console.log(countriesYear);
+
             if (this.year[0] == '2021' && this.year.length == 1) {
                 this.countryData = data[2021];
             } else if (this.year[0] == '2022' && this.year.length == 1) {
-                countriesYear = 'Chile';
                 this.countryData = data[2022];
+                const myArrayFiltered = this.countryData.filter((el: any) => {
+                    return countriesYear === el.name;
+                });
+                if (myArrayFiltered.length == 0) {
+                    countriesYear = 'Chile';
+                }
             } else {
                 this.data2021 = data[2021];
                 this.data2022 = data[2022];
@@ -58,6 +65,7 @@ export class NdhsCountriesComponent implements OnInit {
             }
 
             this.singleCountryData = this.countryData.find((x: { name: any; }) => x.name === countriesYear);
+
             this.localDataService.showHeaderMenu.next(true);
 
             this.localDataService.governanceTypeSource.subscribe((governanceId) => {
@@ -65,7 +73,8 @@ export class NdhsCountriesComponent implements OnInit {
                 this.governanceId = governanceId;
 
                 this.apiData.getPieChartDetails(this.governanceId, this.singleCountryData.id, this.singleCountryData.year).subscribe((data: any) => {
-         
+
+                    this.selectCountry(this.singleCountryData);
                     if (this.governanceId == 1) {
                         this.ndhsPresentDevelopmentHealthIt = data['Present Development'];
                         this.ndhsProspectiveDevelopmentHealthIt = data['Prospective Development'];
@@ -85,6 +94,7 @@ export class NdhsCountriesComponent implements OnInit {
     }
 
     selectCountry(country: any) {
+
         this.singleCountryData = country;
         this.localDataService.showHeaderMenu.next(true);
         this.localDataService.mapSelectedCountry = country.name;

@@ -102,7 +102,6 @@ export class ComparativeResultDetailComponent implements OnInit {
                   return f.id === el.id && f.name === el.name;
                 });
               });
-              console.log(myArrayFiltered);
               if (myArrayFiltered.length != 0) {
                 this.mapCountryData = this.localDataService.mapData2CountryData;
               } else {
