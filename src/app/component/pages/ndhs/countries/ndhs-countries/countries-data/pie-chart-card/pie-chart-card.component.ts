@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataModalComponent } from '../data-modal/data-modal.component';
 
@@ -7,7 +7,7 @@ import { DataModalComponent } from '../data-modal/data-modal.component';
     templateUrl: './pie-chart-card.component.html',
     styleUrls: ['./pie-chart-card.component.css'],
 })
-export class PieChartCardComponent implements OnInit {
+export class PieChartCardComponent {
     @Input() cart: any;
     @Input() isLoading: any;
     @Input() pieData: any = [];
@@ -17,16 +17,6 @@ export class PieChartCardComponent implements OnInit {
     availabilityScore: any;
     data: any;
     constructor(public dialog: MatDialog) { }
-
-    ngOnInit(): void {
-        setTimeout(() => {
-            this.taxonomy_name = this.pieData[0].taxonomy_name;
-            this.development_name = this.pieData[0].development_name;
-            this.radinessScore = this.pieData[0].score;
-            this.availabilityScore = this.pieData[1].score;
-            this.data = this.pieData;
-        }, 2100);
-    }
 
     showData() {
         let dialogRef = this.dialog.open(DataModalComponent, {

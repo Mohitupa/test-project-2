@@ -215,8 +215,6 @@ export class NdhsMapComponent implements AfterViewInit, OnDestroy {
                 });
 
                 this.container.children.push(this.circle);
-                console.log(this.circle);
-
 
                 this.circle.states.create('hover', {
                     radius: 4,

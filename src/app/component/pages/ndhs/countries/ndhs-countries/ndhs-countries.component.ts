@@ -46,7 +46,6 @@ export class NdhsCountriesComponent implements OnInit {
         this.apiData.getCountriesData().subscribe((data) => {
             this.year = this.localDataService.selectedYear;
             let countriesYear = this.localDataService.mapSelectedCountry;
-            console.log(countriesYear);
 
             if (this.year[0] == '2021' && this.year.length == 1) {
                 this.countryData = data[2021];
@@ -119,6 +118,7 @@ export class NdhsCountriesComponent implements OnInit {
     }
 
     presentHealthIt() {
+        this.pie0Data = [];
         this.pie0Loader = true;
         am4core.useTheme(am4themes_animated);
         for (let i = 0; i < Object.keys(this.ndhsPresentDevelopmentHealthIt).length; i++) {
@@ -189,6 +189,7 @@ export class NdhsCountriesComponent implements OnInit {
     }
 
     prospectiveHealthIt() {
+        this.pie1Data = []
         this.pie1Loader = true;
         am4core.useTheme(am4themes_animated);
         for (let i = 0; i < Object.keys(this.ndhsProspectiveDevelopmentHealthIt).length; i++) {
@@ -263,6 +264,7 @@ export class NdhsCountriesComponent implements OnInit {
     }
 
     presentDigital() {
+        this.pie2Data =[];
         this.pie2Loader = true;
         am4core.useTheme(am4themes_animated);
         for (let i = 0; i < Object.keys(this.ndhsPresentDevelopmentDigital).length; i++) {
@@ -337,12 +339,16 @@ export class NdhsCountriesComponent implements OnInit {
     }
 
     prospectiveDigital() {
+        this.pie3Data = []
         this.pie3Loader = true;
+        console.log((this.ndhsProspectiveDevelopmentDigital));
+        
         am4core.useTheme(am4themes_animated);
         for (let i = 0; i < Object.keys(this.ndhsProspectiveDevelopmentDigital).length; i++) {
 
             let y: any = Object.values(this.ndhsProspectiveDevelopmentDigital)
 
+            
             this.pie3Data.push(y[i]);
             let firstScore = Math.round(y[i][0].score / 2);
             let secondScore = Math.round(y[i][1].score / 2);
