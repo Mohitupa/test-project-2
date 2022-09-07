@@ -370,7 +370,7 @@ export class ComparativeResultDetailComponent implements OnInit {
         },
         dataset: [
           {
-            dimensions: ['country_name', "Availability"],
+            dimensions: ['country_name', this.ultimate_name],
             source: chartValue
           },
           {
