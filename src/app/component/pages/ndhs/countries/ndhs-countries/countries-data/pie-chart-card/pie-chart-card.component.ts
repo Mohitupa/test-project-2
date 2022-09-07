@@ -22,7 +22,7 @@ export class PieChartCardComponent {
         let dialogRef = this.dialog.open(DataModalComponent, {
             width: '80%',
             height: '90%',
-            data: this.data,
+            data: this.pieData,
         });
     }
 }
